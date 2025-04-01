@@ -19,7 +19,7 @@ class Wall(object):
     t3: float
     t4: float
 
-class Walls(object)
+class Walls(object):
     name: str
     total_count: int
     sections: List[Wall]
