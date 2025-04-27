@@ -1,13 +1,13 @@
-class coor(object):
+п»їclass coor(object):
     #pass
     X:float
     Y:float
 
 class Wall(object):
-    name: str # Имя секции
-    leght: float # Длина секции, м - L
+    name: str # пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    leght: float # пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ - L
     height_end: float
-    height_end: float # 
+    height_end: float # РџСЂРёРІРµС‚
     foundation_width: float
     top_wall_width: float
     edge_distance: float
