@@ -4,12 +4,10 @@ class coor(object):
     Y:float
 
 class Wall(object):
-    name: str
-    sheet_address: str
-    foundation_level: float
-    length: float
-    height_start: float
+    name: str # Имя секции
+    leght: float # Длина секции, м - L
     height_end: float
+    height_end: float # 
     foundation_width: float
     top_wall_width: float
     edge_distance: float
