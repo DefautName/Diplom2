@@ -1,17 +1,24 @@
 ﻿from turtle import position
 
 
-class coor(object):
+class Coor(object):
     #pass
     X:float
     Y:float
+    def __init__(self):
+        self.X=0
+        self.Y=0
+
+    def __init__(self,x,y):
+        self.X=x
+        self.Y=y
 
 class Wall(object):
     name: str # Имя стенки
     name_wall:str
     name_founding:str
     count:int
-    position:float # Отметка подошвы 
+    foundation_base:float # Отметка подошвы 
     leght: float # Длина секции, м - L
     height_end: float
     height_start: float # Привет
@@ -30,7 +37,7 @@ class Wall(object):
         print("Имя секции: "+self.name)
         print("Имя ростверка: "+self.name_founding)
         print("Имя стенки: "+self.name_wall)
-        print("Отметка подошвы: "+str(self.position))
+        print("Отметка подошвы: "+str(self.foundation_base))
         print("Число: "+str(self.count))
         print("Длина: "+str(self.leght))
         print("Общая высота (нач): "+str(self.height_start))
@@ -45,6 +52,8 @@ class Wall(object):
         print("Толщина перекрытия 2 у насыпи: "+str(self.t4))
         print("Объем ростверка подпорной стены, м3: "+str(self.V1))
         print("Объем тела подпорной стены, м3: "+str(self.V2))
+
+        
 
 class Walls(object):
     name: str
