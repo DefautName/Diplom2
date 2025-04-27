@@ -4,8 +4,8 @@
     Y:float
 
 class Wall(object):
-    name: str # ��� ������
-    leght: float # ����� ������, � - L
+    name: str # Имя стенки
+    leght: float # Длина секции, м - L
     height_end: float
     height_end: float # Привет
     foundation_width: float
