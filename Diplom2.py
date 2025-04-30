@@ -13,7 +13,7 @@ sheet=workbook[sheet_Name]
 
 start_Point='D3'
 read_row=3
-read_column=4
+read_column=5
 value=sheet.cell(row=read_row,column=read_column).value
 
 input_data=Wall()
