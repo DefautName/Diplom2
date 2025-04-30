@@ -30,10 +30,10 @@ input_data.foundation_width=sheet.cell(row=read_row+10,column=read_column).value
 input_data.top_wall_width=sheet.cell(row=read_row+11,column=read_column).value*1000
 input_data.edge_distance=sheet.cell(row=read_row+12,column=read_column).value*1000
 input_data.bottom_wall_width=sheet.cell(row=read_row+13,column=read_column).value*1000
-input_data.t1=sheet.cell(row=read_row+14,column=read_column).value
-input_data.t2=sheet.cell(row=read_row+15,column=read_column).value
-input_data.t3=sheet.cell(row=read_row+16,column=read_column).value
-input_data.t4=sheet.cell(row=read_row+17,column=read_column).value
+input_data.t1=sheet.cell(row=read_row+14,column=read_column).value*1000
+input_data.t2=sheet.cell(row=read_row+15,column=read_column).value*1000
+input_data.t3=sheet.cell(row=read_row+16,column=read_column).value*1000
+input_data.t4=sheet.cell(row=read_row+17,column=read_column).value*1000
 input_data.V1=sheet.cell(row=read_row+18,column=read_column).value
 input_data.V2=sheet.cell(row=read_row+18,column=read_column).value
 
@@ -86,7 +86,7 @@ SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y))#15
 SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y + input_data.t2))#16
 SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance , start_coordinates.Y + input_data.t1))#17
 SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance , start_coordinates.Y + input_data.height_end))#18
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance + input_data.top_wall_width, start_coordinates.Y + input_data.height_start))#19
+SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance + input_data.top_wall_width, start_coordinates.Y + input_data.height_end))#19
 SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance + input_data.bottom_wall_width, start_coordinates.Y + input_data.t3))#20
 SECTION_Coor.append(Coor(start_coordinates.X + input_data.foundation_width, start_coordinates.Y + input_data.t4))#21
 SECTION_Coor.append(Coor(start_coordinates.X + input_data.foundation_width, start_coordinates.Y))#22
@@ -101,12 +101,18 @@ SECTION_Coor.append(Coor(SECTION_Coor[23].X+input_data.leght, SECTION_Coor[23].Y
 SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y+input_data.edge_distance))#27
 SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y+input_data.edge_distance+input_data.bottom_wall_width))#28
 SECTION_Coor.append(Coor(SECTION_Coor[28].X + input_data.leght, SECTION_Coor[28].Y))#29
-SECTION_Coor.append(Coor(SECTION_Coor[27].X + input_data.leght, SECTION_Coor[27]))#30
+SECTION_Coor.append(Coor(SECTION_Coor[27].X + input_data.leght, SECTION_Coor[27].Y))#30
 SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y+input_data.edge_distance+input_data.top_wall_width))#31
 SECTION_Coor.append(Coor(SECTION_Coor[31].X+input_data.leght, SECTION_Coor[31].Y))#32
 
 #print(SECTION_Coor)
+
+i=0
 for item in SECTION_Coor:
-    print(item.X)
-    print(str(item.Y)+"\n")
+    print(str(i)+": "+str(item.X))
+    print("   " + str(item.Y)+"\n")
+    i=i+1
+#
+#Массив топологии
+# 
 
