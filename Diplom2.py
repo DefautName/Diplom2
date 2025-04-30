@@ -2,7 +2,7 @@
 
 from Classes import Wall
 from Classes import Coor
-#import pyautocad
+import pyautocad
 
 file_Name="DATA_"
 add=".xlsm"
@@ -105,14 +105,7 @@ SECTION_Coor.append(Coor(SECTION_Coor[27].X + input_data.leght, SECTION_Coor[27]
 SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y+input_data.edge_distance+input_data.top_wall_width))#31
 SECTION_Coor.append(Coor(SECTION_Coor[31].X+input_data.leght, SECTION_Coor[31].Y))#32
 
-#print(SECTION_Coor)
 
-i=0
-for item in SECTION_Coor:
-    print(str(i)+": "+str(item.X))
-    print("   " + str(item.Y)+"\n")
-    i=i+1
-#
 #Массив топологии
 #
 #Отрисовка ведется отрезками.Заполняем список спиками - в которых записано начало и конец отрезка
@@ -157,8 +150,19 @@ Topology.append([28,29])
 Topology.append([27,30])
 Topology.append([31,32])
 
+#Отрисовка
+print(len(Topology))
+i=1
+for item in Topology:
+    print(i)
+    print("Координаты начала линии")
+    print(SECTION_Coor[item[0]].X)
+    print(SECTION_Coor[item[0]].Y)
+    print("Координаты конца линии")
+    print(SECTION_Coor[item[1]].X)
+    print(SECTION_Coor[item[1]].Y)
+    i=i+1
 
 
-print(SECTION_Coor[Topology[0][1]].X)
-print(SECTION_Coor[Topology[0][1]].Y)
+
 
