@@ -114,5 +114,51 @@ for item in SECTION_Coor:
     i=i+1
 #
 #Массив топологии
-# 
+#
+#Отрисовка ведется отрезками.Заполняем список спиками - в которых записано начало и конец отрезка
+
+Topology=[]
+
+
+#Фасад
+
+Topology.append([1,4])
+Topology.append([2,3])
+Topology.append([5,6])
+Topology.append([1,5])
+Topology.append([4,6])
+
+#Вид 1-1
+Topology.append([7,8])
+Topology.append([8,9])
+Topology.append([9,10])
+Topology.append([10,11])
+Topology.append([11,12])
+Topology.append([12,13])
+Topology.append([13,14])
+Topology.append([14,7])
+
+#Вид 2-2
+Topology.append([15,16])
+Topology.append([16,17])
+Topology.append([17,18])
+Topology.append([18,19])
+Topology.append([19,20])
+Topology.append([20,21])
+Topology.append([21,22])
+Topology.append([22,15])
+
+#План
+Topology.append([23,24])
+Topology.append([24,25])
+Topology.append([25,26])
+Topology.append([26,23])
+Topology.append([28,29])
+Topology.append([27,30])
+Topology.append([31,32])
+
+
+
+print(SECTION_Coor[Topology[0][1]].X)
+print(SECTION_Coor[Topology[0][1]].Y)
 
