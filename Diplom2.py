@@ -1,8 +1,12 @@
-﻿import openpyxl
+﻿from pyautocad import Autocad, APoint
+
+import openpyxl
 
 from Classes import Wall
 from Classes import Coor
-import pyautocad
+
+
+
 
 file_Name="DATA_"
 add=".xlsm"
@@ -153,15 +157,13 @@ Topology.append([31,32])
 #Отрисовка
 print(len(Topology))
 i=1
+acad= Autocad(create_if_not_exists=False)
 for item in Topology:
-    print(i)
-    print("Координаты начала линии")
-    print(SECTION_Coor[item[0]].X)
-    print(SECTION_Coor[item[0]].Y)
-    print("Координаты конца линии")
-    print(SECTION_Coor[item[1]].X)
-    print(SECTION_Coor[item[1]].Y)
+    start_point=APoint(SECTION_Coor[item[0]].X,SECTION_Coor[item[0]].Y)
+    end_point=APoint(SECTION_Coor[item[1]].X,SECTION_Coor[item[1]].Y)
+    acad.model.AddLine(start_point,end_point)
     i=i+1
+    
 
 
 
