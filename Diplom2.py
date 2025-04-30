@@ -54,11 +54,36 @@ Line_distance = 15000 #расстояние между двух видовых �
 
 SECTION_Coor = [] #список всех координат видов в одной секции стенки
 
-SECTION_Coor.append(Coor(0,0)) #0 - фиктивная точка 00 для начала нумерации нормальных точек с единици
+SECTION_Coor.append(Coor(0,0)) #0 - фиктивная точка 00 для начала нумерации нормальных точек с единицы
 SECTION_Coor.append(incert_point)#1
-SECTION_Coor.append(Coor(incert_point.X,incert_point.Y+input_data.t1))#2
+#Фасад
+SECTION_Coor.append(Coor(incert_point.X, incert_point.Y + input_data.t2))#2
+SECTION_Coor.append(Coor(incert_point.X + input_data.leght, incert_point.Y + input_data.t2))#3
+SECTION_Coor.append(Coor(incert_point.X + input_data.leght, incert_point.Y))#4
+SECTION_Coor.append(Coor(incert_point.X, incert_point.Y + input_data.height_start))#5
+SECTION_Coor.append(Coor(incert_point.X + input_data.leght, incert_point.Y + input_data.height_end))#6
 
-print(SECTION_Coor)
+#Вид 1-1
+#Задаем точку НК чтобы каждый вид считать от 0.0 а не прибавлять все расстояния в каждой точке
+start_coordinates = Coor(incert_point.X + input_data.leght + View_l1, incert_point.Y) 
+print("start coordinate: " + str(start_coordinates.X) +" " + str(start_coordinates.Y))
+
+SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y))#7
+SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y + input_data.t2))#8
+SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance , start_coordinates.Y + input_data.t1))#9
+SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance , start_coordinates.Y + input_data.height_start))#10
+SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance + input_data.top_wall_width, start_coordinates.Y + input_data.height_start))#11
+SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance + input_data.bottom_wall_width, start_coordinates.Y + input_data.t3))#12
+SECTION_Coor.append(Coor(start_coordinates.X + input_data.foundation_width, start_coordinates.Y + input_data.t4))#13
+SECTION_Coor.append(Coor(start_coordinates.X + input_data.foundation_width, start_coordinates.Y))#14
+
+#Вид 2-2
+#Задаем точку НК чтобы каждый вид считать от 0.0 а не прибавлять все расстояния в каждой точке
+start_coordinates = Coor(incert_point.X + input_data.leght + View_l1, incert_point.Y) 
+print("start coordinate: " + str(start_coordinates.X) +" " + str(start_coordinates.Y))
+
+
+#print(SECTION_Coor)
 for item in SECTION_Coor:
     print(item.X)
     print(str(item.Y)+"\n")

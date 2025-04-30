@@ -18,27 +18,27 @@ class Wall(object):
     name_wall:str
     name_founding:str
     count:int
-    foundation_base:float # Отметка подошвы 
+    foundation_base:float # Отметка подошвы фундамента
     leght: float # Длина секции, м - L
-    height_end: float
-    height_start: float # Привет
-    foundation_width: float
-    top_wall_width: float
-    edge_distance: float
-    bottom_wall_width: float
-    t1: float
-    t2: float
-    t3: float
-    t4: float
-    V1: float
-    V2: float
+    height_end: float # Высота в конце стенки - H_кон
+    height_start: float # Высота в начале стенки - H_нач
+    foundation_width: float #Ширина ф-та - В
+    top_wall_width: float #ширина стены наерху - в2
+    edge_distance: float #расстояние от стены до края - в3
+    bottom_wall_width: float #ширина стены внизу - в4
+    t1: float #толщина перекрытия 1 у стены 
+    t2: float #толщина перекрытия 1 у насыпи
+    t3: float #толщина перекрытия 2 у стены
+    t4: float #олщина перекрытия 2 у насыпи
+    V1: float #объем ростверка подпорной стены, м3
+    V2: float #объем стеновой части подпорной стены, м3
 
     def ShowAll(self):
         print("Имя секции: "+self.name)
         print("Имя ростверка: "+self.name_founding)
         print("Имя стенки: "+self.name_wall)
         print("Отметка подошвы: "+str(self.foundation_base))
-        print("Число: "+str(self.count))
+        print("Колличество секций: "+str(self.count))
         print("Длина: "+str(self.leght))
         print("Общая высота (нач): "+str(self.height_start))
         print("Общая высота (кон): "+str(self.height_end))
