@@ -2,6 +2,7 @@
 import openpyxl
 from Classes import Wall
 from Classes import Coor
+import Functions
 
 file_Name="DATA_"
 add=".xlsm"
@@ -149,8 +150,8 @@ Topology.append([28,29])
 Topology.append([27,30])
 Topology.append([31,32])
 
-#Выставление необходимых слоев
-acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка слоя для отрисовки чертежа
+#Выставление необходимого слоя
+acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка слоя для отрисовки 
 
 #Отрисовка
 for item in Topology:
@@ -160,11 +161,32 @@ for item in Topology:
     
 # Создание маасива топологии для отрисовки размерных линий
 # Все размеры создаются строго слева направо или снозу вверх!!!    
-# [[X,Y,Положение размерной линии]]   
+# [[X,Y,Тип размера, Величина отступа]]   
  
 SizeTopology=[]
-SizeTopology.append([1,5,])
-SizeTopology.append([4,6])
+
+#Размеры видов в масштабе 1:100
+SizeStyle1 = 'LINE100'
+
+SizeTopology.append([1, 5, 1, -1000])
+SizeTopology.append([4, 6, 1, 1000])
+
+SizeTopology.append([23, 24, 1, -500])
+SizeTopology.append([23, 26, 0, 1000])
+
+#Размеры сечений в масштабе 1:50
+SizeStyle1 = 'LINE50'
+
+SizeTopology.append([7, 10, 1, -500])
+SizeTopology.append([7, 14, 0, 1000])
+
+SizeTopology.append([15, 18, 1, -500])
+SizeTopology.append([15, 22, 0, 500])
 
 
-
+acad.doc.ActiveLayer = acad.doc.Layers.Item("Size") #установка слоя для отрисовки 
+#Отрисовка
+for item in SizeTopology:
+    start_point = APoint(SECTION_Coor[item[0]].X, SECTION_Coor[item[0]].Y )
+    end_point = APoint(SECTION_Coor[item[1]].X, SECTION_Coor[item[1]].Y )
+    dim_position = Functions.GetSizePoint(star)

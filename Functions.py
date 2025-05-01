@@ -5,10 +5,11 @@ from Classes import Coor
 
 # PointST - Coor начальной точки размера
 # PointEND - Coor конечнойй точки размера
+# TypeSizeLine - Int тип - размера (горизонтальный  0 / вертикальный 1)
 # PositionSizeLine - Float отступ - положение размерной линии (<0 - размер идет влево или вниз, >0 вправо или вверх) 
-# TypeSizeLine - Int тип - размера (горизонтальный - 0 / вертикальный - 1)
 
-def GetSizePoint (PointST, PointEND, PositionSizeLine, TypeSizeLine):
+
+def GetSizePoint (PointST, PointEND, TypeSizeLine, PositionSizeLine):
    rez = Coor(0,0)
    if TypeSizeLine == 0 : 
         rez.X = (PointEND.X - PointST.X)/2 

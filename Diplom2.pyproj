@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>84519ad3-6a24-4f0f-97e4-58333f0039d7</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Functions.py</StartupFile>
+    <StartupFile>Diplom2.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
