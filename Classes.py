@@ -1,6 +1,4 @@
-﻿from re import X
-from tkinter import Y
-from turtle import position
+﻿import openpyxl
 
 
 class Coor(object):
@@ -37,6 +35,32 @@ class Wall(object):
     t4: float #олщина перекрытия 2 у насыпи
     V1: float #объем ростверка подпорной стены, м3
     V2: float #объем стеновой части подпорной стены, м3
+
+    def SetData(self, filename, sheetName):
+        workbook = openpyxl.load_workbook(filename, data_only=True )
+        sheet=workbook[sheetName]
+        read_row=3
+        read_column=5
+        
+        self.name=sheet.cell(row=read_row,column=read_column).value#имя секции
+        self.name_founding=sheet.cell(row=read_row+1,column=read_column).value
+        self.name_wall=sheet.cell(row=read_row+3,column=read_column).value
+        self.count=sheet.cell(row=read_row+5,column=read_column).value
+        self.foundation_base=sheet.cell(row=read_row+6,column=read_column).value
+        self.leght=sheet.cell(row=read_row+7,column=read_column).value*1000
+        self.height_start=sheet.cell(row=read_row+8,column=read_column).value*1000
+        self.height_end=sheet.cell(row=read_row+9,column=read_column).value*1000
+        self.foundation_width=sheet.cell(row=read_row+10,column=read_column).value*1000
+        self.top_wall_width=sheet.cell(row=read_row+11,column=read_column).value*1000
+        self.edge_distance=sheet.cell(row=read_row+12,column=read_column).value*1000
+        self.bottom_wall_width=sheet.cell(row=read_row+13,column=read_column).value*1000
+        self.t1=sheet.cell(row=read_row+14,column=read_column).value*1000
+        self.t2=sheet.cell(row=read_row+15,column=read_column).value*1000
+        self.t3=sheet.cell(row=read_row+16,column=read_column).value*1000
+        self.t4=sheet.cell(row=read_row+17,column=read_column).value*1000
+        self.V1=sheet.cell(row=read_row+18,column=read_column).value
+        self.V2=sheet.cell(row=read_row+18,column=read_column).value
+
 
     def ShowAll(self):
         print("Имя секции: "+self.name)
