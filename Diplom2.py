@@ -46,10 +46,12 @@ input_data.ShowAll()
 
 
 #--\\ОТРИСОВКА\\--
+acad= Autocad(create_if_not_exists=False)
+print("Необходимо ввести точку вставки, поржалуйста перейдите в AutoCad")
+start_point = acad.doc.Utility.GetPoint(APoint(0, 0), "Введите точку вставки: ")# ввод от пользователя точки вставки картинки в автокад
 
-incert_point=Coor(0,input_data.foundation_base)#Точка вставки - левый нижний угол фасада подпорной стены
-incert_point.X = 0 #функция ввода из автокада (пользователь делает тык) <------
-incert_point.Y = input_data.foundation_base
+incert_point=Coor(start_point[0],input_data.foundation_base)#Точка вставки - левый нижний угол фасада подпорной стены
+
 
 View_l1 = 5000 #расстояние между фасадом и сечением 1-1 (по горизонтали)
 View_l2 = 5000 #расстояние сечением 1-1 и сечением 2-2 (по горизонтали)
@@ -155,15 +157,17 @@ Topology.append([27,30])
 Topology.append([31,32])
 
 #Отрисовка
-print(len(Topology))
+
 i=1
-acad= Autocad(create_if_not_exists=False)
+
+
 for item in Topology:
     start_point=APoint(SECTION_Coor[item[0]].X,SECTION_Coor[item[0]].Y)
     end_point=APoint(SECTION_Coor[item[1]].X,SECTION_Coor[item[1]].Y)
     acad.model.AddLine(start_point,end_point)
     i=i+1
     
+
 
 
 
