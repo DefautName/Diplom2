@@ -1,7 +1,6 @@
 ﻿from pyautocad import Autocad, APoint
 import openpyxl
 from Classes import Wall
-from Classes import Coor
 import Functions
 
 file_Name="DATA_"
@@ -46,7 +45,7 @@ acad= Autocad(create_if_not_exists=False)
 print("Необходимо ввести точку вставки, поржалуйста перейдите в AutoCad")
 start_point = acad.doc.Utility.GetPoint(APoint(0, 0), "Введите точку вставки: ")# ввод от пользователя точки вставки картинки в автокад
 
-incert_point=Coor(start_point[0],input_data.foundation_base)#Точка вставки - левый нижний угол фасада подпорной стены
+incert_point=APoint(start_point[0],input_data.foundation_base)#Точка вставки - левый нижний угол фасада подпорной стены
 
 
 View_l1 = 5000 #расстояние между фасадом и сечением 1-1 (по горизонтали)
@@ -56,56 +55,56 @@ Line_distance = 15000 #расстояние между двух видовых �
 
 SECTION_Coor = [] #список всех координат видов в одной секции стенки
 
-SECTION_Coor.append(Coor(0,0)) #0 - фиктивная точка 00 для начала нумерации нормальных точек с единицы
+SECTION_Coor.append(APoint(0,0)) #0 - фиктивная точка 00 для начала нумерации нормальных точек с единицы
 SECTION_Coor.append(incert_point)#1
 #Фасад
-SECTION_Coor.append(Coor(incert_point.X, incert_point.Y + input_data.t2))#2
-SECTION_Coor.append(Coor(SECTION_Coor[2].X + input_data.leght, SECTION_Coor[2].Y))#3
-SECTION_Coor.append(Coor(SECTION_Coor[1].X + input_data.leght, SECTION_Coor[1].Y))#4
-SECTION_Coor.append(Coor(incert_point.X, incert_point.Y + input_data.height_start))#5
-SECTION_Coor.append(Coor(incert_point.X + input_data.leght, incert_point.Y + input_data.height_end))#6
+SECTION_Coor.append(APoint(incert_point.x, incert_point.y + input_data.t2))#2
+SECTION_Coor.append(APoint(SECTION_Coor[2].x + input_data.leght, SECTION_Coor[2].y))#3
+SECTION_Coor.append(APoint(SECTION_Coor[1].x + input_data.leght, SECTION_Coor[1].y))#4
+SECTION_Coor.append(APoint(incert_point.x, incert_point.y + input_data.height_start))#5
+SECTION_Coor.append(APoint(incert_point.x + input_data.leght, incert_point.y + input_data.height_end))#6
 
 #Вид 1-1
 #Задаем точку НК чтобы каждый вид считать от 0.0 а не прибавлять все расстояния в каждой точке
-start_coordinates = Coor(incert_point.X + input_data.leght + View_l1, incert_point.Y) 
-print("start coordinate: " + str(start_coordinates.X) +" " + str(start_coordinates.Y))
+start_coordinates = APoint(incert_point.x + input_data.leght + View_l1, incert_point.y) 
+print("start coordinate: " + str(start_coordinates.x) +" " + str(start_coordinates.y))
 
-SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y))#7
-SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y + input_data.t2))#8
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance , start_coordinates.Y + input_data.t1))#9
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance , start_coordinates.Y + input_data.height_start))#10
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance + input_data.top_wall_width, start_coordinates.Y + input_data.height_start))#11
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance + input_data.bottom_wall_width, start_coordinates.Y + input_data.t3))#12
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.foundation_width, start_coordinates.Y + input_data.t4))#13
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.foundation_width, start_coordinates.Y))#14
+SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y))#7
+SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y + input_data.t2))#8
+SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance , start_coordinates.y + input_data.t1))#9
+SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance , start_coordinates.y + input_data.height_start))#10
+SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance + input_data.top_wall_width, start_coordinates.y + input_data.height_start))#11
+SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance + input_data.bottom_wall_width, start_coordinates.y + input_data.t3))#12
+SECTION_Coor.append(APoint(start_coordinates.x + input_data.foundation_width, start_coordinates.y + input_data.t4))#13
+SECTION_Coor.append(APoint(start_coordinates.x + input_data.foundation_width, start_coordinates.y))#14
 
 #Вид 2-2
 #Задаем точку НК чтобы каждый вид считать от 0.0 а не прибавлять все расстояния в каждой точке
-start_coordinates = Coor(incert_point.X + input_data.leght + View_l1+ View_l2+ input_data.foundation_width, incert_point.Y) 
-#print("start coordinate: " + str(start_coordinates.X) +" " + str(start_coordinates.Y))
+start_coordinates = APoint(incert_point.x + input_data.leght + View_l1+ View_l2+ input_data.foundation_width, incert_point.y) 
+#print("start coordinate: " + str(start_coordinates.x) +" " + str(start_coordinates.y))
 
-SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y))#15
-SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y + input_data.t2))#16
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance , start_coordinates.Y + input_data.t1))#17
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance , start_coordinates.Y + input_data.height_end))#18
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance + input_data.top_wall_width, start_coordinates.Y + input_data.height_end))#19
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.edge_distance + input_data.bottom_wall_width, start_coordinates.Y + input_data.t3))#20
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.foundation_width, start_coordinates.Y + input_data.t4))#21
-SECTION_Coor.append(Coor(start_coordinates.X + input_data.foundation_width, start_coordinates.Y))#22
+SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y))#15
+SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y + input_data.t2))#16
+SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance , start_coordinates.y + input_data.t1))#17
+SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance , start_coordinates.y + input_data.height_end))#18
+SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance + input_data.top_wall_width, start_coordinates.y + input_data.height_end))#19
+SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance + input_data.bottom_wall_width, start_coordinates.y + input_data.t3))#20
+SECTION_Coor.append(APoint(start_coordinates.x + input_data.foundation_width, start_coordinates.y + input_data.t4))#21
+SECTION_Coor.append(APoint(start_coordinates.x + input_data.foundation_width, start_coordinates.y))#22
 
 #План 
-start_coordinates = Coor(incert_point.X, incert_point.Y - View_l3)
+start_coordinates = APoint(incert_point.x, incert_point.y - View_l3)
 
-SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y))#23
-SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y + input_data.foundation_width))#24
-SECTION_Coor.append(Coor(SECTION_Coor[24].X+input_data.leght, SECTION_Coor[24].Y))#25
-SECTION_Coor.append(Coor(SECTION_Coor[23].X+input_data.leght, SECTION_Coor[23].Y))#26
-SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y+input_data.edge_distance))#27
-SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y+input_data.edge_distance+input_data.bottom_wall_width))#28
-SECTION_Coor.append(Coor(SECTION_Coor[28].X + input_data.leght, SECTION_Coor[28].Y))#29
-SECTION_Coor.append(Coor(SECTION_Coor[27].X + input_data.leght, SECTION_Coor[27].Y))#30
-SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y+input_data.edge_distance+input_data.top_wall_width))#31
-SECTION_Coor.append(Coor(SECTION_Coor[31].X+input_data.leght, SECTION_Coor[31].Y))#32
+SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y))#23
+SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y + input_data.foundation_width))#24
+SECTION_Coor.append(APoint(SECTION_Coor[24].x+input_data.leght, SECTION_Coor[24].y))#25
+SECTION_Coor.append(APoint(SECTION_Coor[23].x+input_data.leght, SECTION_Coor[23].y))#26
+SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y+input_data.edge_distance))#27
+SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y+input_data.edge_distance+input_data.bottom_wall_width))#28
+SECTION_Coor.append(APoint(SECTION_Coor[28].x + input_data.leght, SECTION_Coor[28].y))#29
+SECTION_Coor.append(APoint(SECTION_Coor[27].x + input_data.leght, SECTION_Coor[27].y))#30
+SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y+input_data.edge_distance+input_data.top_wall_width))#31
+SECTION_Coor.append(APoint(SECTION_Coor[31].x+input_data.leght, SECTION_Coor[31].y))#32
 
 
 #Массив топологии видов стенок
@@ -155,13 +154,13 @@ acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка сло�
 
 #Отрисовка
 for item in Topology:
-    start_point=APoint(SECTION_Coor[item[0]].X,SECTION_Coor[item[0]].Y)
-    end_point=APoint(SECTION_Coor[item[1]].X,SECTION_Coor[item[1]].Y)
+    start_point=APoint(SECTION_Coor[item[0]].x,SECTION_Coor[item[0]].y)
+    end_point=APoint(SECTION_Coor[item[1]].x,SECTION_Coor[item[1]].y)
     acad.model.AddLine(start_point,end_point)
     
 # Создание маасива топологии для отрисовки размерных линий
 # Все размеры создаются строго слева направо или снозу вверх!!!    
-# [[X,Y,Тип размера, Величина отступа]]   
+# [[x,y,Тип размера, Величина отступа]]   
  
 SizeTopology=[]
 
@@ -169,24 +168,26 @@ SizeTopology=[]
 SizeStyle1 = 'LINE100'
 
 SizeTopology.append([1, 5, 1, -1000])
-SizeTopology.append([4, 6, 1, 1000])
+SizeTopology.append([4, 6, 1, -1000])
 
 SizeTopology.append([23, 24, 1, -500])
-SizeTopology.append([23, 26, 0, 1000])
+SizeTopology.append([23, 26, 0, -1000])
 
 #Размеры сечений в масштабе 1:50
 SizeStyle1 = 'LINE50'
 
 SizeTopology.append([7, 10, 1, -500])
-SizeTopology.append([7, 14, 0, 1000])
+SizeTopology.append([7, 14, 0, -1000])
 
 SizeTopology.append([15, 18, 1, -500])
-SizeTopology.append([15, 22, 0, 500])
+SizeTopology.append([15, 22, 0, -500])
 
 
 acad.doc.ActiveLayer = acad.doc.Layers.Item("Size") #установка слоя для отрисовки 
 #Отрисовка
 for item in SizeTopology:
-    start_point = APoint(SECTION_Coor[item[0]].X, SECTION_Coor[item[0]].Y )
-    end_point = APoint(SECTION_Coor[item[1]].X, SECTION_Coor[item[1]].Y )
-    dim_position = Functions.GetSizePoint(star)
+    start_point = APoint(SECTION_Coor[item[0]].x, SECTION_Coor[item[0]].y )
+    end_point = APoint(SECTION_Coor[item[1]].x, SECTION_Coor[item[1]].y )
+    dim_position = Functions.GetSizePoint(start_point,end_point,item[2],item[3])
+    dim_obj = acad.model.AddDimRotated(start_point, end_point, dim_position,0)
+    

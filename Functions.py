@@ -1,25 +1,25 @@
 ﻿
-from Classes import Coor
+from pyautocad import APoint
 
 #Функция для работы с размерами. 
 
-# PointST - Coor начальной точки размера
-# PointEND - Coor конечнойй точки размера
+# PointST - APoint начальной точки размера
+# PointEND - APoint конечнойй точки размера
 # TypeSizeLine - Int тип - размера (горизонтальный  0 / вертикальный 1)
 # PositionSizeLine - Float отступ - положение размерной линии (<0 - размер идет влево или вниз, >0 вправо или вверх) 
 
 
 def GetSizePoint (PointST, PointEND, TypeSizeLine, PositionSizeLine):
-   rez = Coor(0,0)
+   rez = APoint(0,0)
    if TypeSizeLine == 0 : 
-        rez.X = (PointEND.X - PointST.X)/2 
+        rez.x = (PointEND.x - PointST.x)/2 
         if PositionSizeLine < 0:
-            rez.Y = min(PointST.Y, PointEND.Y) + PositionSizeLine
-        else: rez.Y = max(PointST.Y, PointEND.Y) + PositionSizeLine
+            rez.y = min(PointST.y, PointEND.y) + PositionSizeLine
+        else: rez.y = max(PointST.y, PointEND.y) + PositionSizeLine
    if TypeSizeLine == 1 :
-        rez.Y = (PointEND.Y - PointST.Y)/2 
+        rez.y = (PointEND.y - PointST.y)/2 
         if PositionSizeLine < 0:
-            rez.X = min(PointST.X, PointEND.X) + PositionSizeLine
-        else: rez.X = max(PointST.X, PointEND.X) + PositionSizeLine
+            rez.x = min(PointST.x, PointEND.x) + PositionSizeLine
+        else: rez.x = max(PointST.x, PointEND.x) + PositionSizeLine
    return rez
 
