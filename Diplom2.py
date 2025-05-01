@@ -2,6 +2,7 @@
 import openpyxl
 from Classes import Wall
 import Functions
+import math
 
 file_Name="DATA_"
 add=".xlsm"
@@ -167,20 +168,20 @@ SizeTopology=[]
 #Размеры видов в масштабе 1:100
 SizeStyle1 = 'LINE100'
 
-SizeTopology.append([1, 5, 1, -1000])
-SizeTopology.append([4, 6, 1, -1000])
+SizeTopology.append([1, 5, math.pi/2, 1000,SizeStyle1])
+SizeTopology.append([4, 6, 3*math.pi/2, 1000,SizeStyle1])
 
-SizeTopology.append([23, 24, 1, -500])
-SizeTopology.append([23, 26, 0, -1000])
+SizeTopology.append([23, 24, math.pi/2, 500,SizeStyle1])
+SizeTopology.append([23, 26, 0, 1000,SizeStyle1])
 
 #Размеры сечений в масштабе 1:50
-SizeStyle1 = 'LINE50'
+SizeStyle2 = 'LINE50'
 
-SizeTopology.append([7, 10, 1, -500])
-SizeTopology.append([7, 14, 0, -1000])
+SizeTopology.append([7, 10, math.pi/2, 500,SizeStyle2])
+SizeTopology.append([7, 14, 0, 1000,SizeStyle2])
 
-SizeTopology.append([15, 18, 1, -500])
-SizeTopology.append([15, 22, 0, -500])
+SizeTopology.append([15, 18, math.pi/2, 500,SizeStyle2])
+SizeTopology.append([15, 22, 0, 500,SizeStyle2])
 
 
 acad.doc.ActiveLayer = acad.doc.Layers.Item("Size") #установка слоя для отрисовки 
@@ -189,5 +190,5 @@ for item in SizeTopology:
     start_point = APoint(SECTION_Coor[item[0]].x, SECTION_Coor[item[0]].y )
     end_point = APoint(SECTION_Coor[item[1]].x, SECTION_Coor[item[1]].y )
     dim_position = Functions.GetSizePoint(start_point,end_point,item[2],item[3])
-    dim_obj = acad.model.AddDimRotated(start_point, end_point, dim_position,0)
+    dim_obj = acad.model.AddDimRotated(start_point, end_point, dim_position,item[2])
     
