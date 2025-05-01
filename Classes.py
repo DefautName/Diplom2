@@ -1,4 +1,6 @@
-﻿from turtle import position
+﻿from re import X
+from tkinter import Y
+from turtle import position
 
 
 class Coor(object):
@@ -12,6 +14,9 @@ class Coor(object):
     def __init__(self,x,y):
         self.X=x
         self.Y=y
+    def Print(self):
+        print(str(self.X)+", " + str(self.Y))
+        
 
 class Wall(object):
     name: str # Имя стенки

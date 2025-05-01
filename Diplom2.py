@@ -1,12 +1,7 @@
 ﻿from pyautocad import Autocad, APoint
-
 import openpyxl
-
 from Classes import Wall
 from Classes import Coor
-
-
-
 
 file_Name="DATA_"
 add=".xlsm"
@@ -112,12 +107,10 @@ SECTION_Coor.append(Coor(start_coordinates.X, start_coordinates.Y+input_data.edg
 SECTION_Coor.append(Coor(SECTION_Coor[31].X+input_data.leght, SECTION_Coor[31].Y))#32
 
 
-#Массив топологии
-#
-#Отрисовка ведется отрезками.Заполняем список спиками - в которых записано начало и конец отрезка
+#Массив топологии видов стенок
+#Отрисовка ведется отрезками.Заполняем список мини-спиками - в которых записано начало и конец отрезка
 
 Topology=[]
-
 
 #Фасад
 
@@ -156,19 +149,22 @@ Topology.append([28,29])
 Topology.append([27,30])
 Topology.append([31,32])
 
+#Выставление необходимых слоев
+acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка слоя для отрисовки чертежа
+
 #Отрисовка
-
-i=1
-
-
 for item in Topology:
     start_point=APoint(SECTION_Coor[item[0]].X,SECTION_Coor[item[0]].Y)
     end_point=APoint(SECTION_Coor[item[1]].X,SECTION_Coor[item[1]].Y)
     acad.model.AddLine(start_point,end_point)
-    i=i+1
     
-
-
+# Создание маасива топологии для отрисовки размерных линий
+# Все размеры создаются строго слева направо или снозу вверх!!!    
+# [[X,Y,Положение размерной линии]]   
+ 
+SizeTopology=[]
+SizeTopology.append([1,5,])
+SizeTopology.append([4,6])
 
 
 
