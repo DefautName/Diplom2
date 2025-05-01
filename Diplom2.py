@@ -1,5 +1,4 @@
 ﻿from pyautocad import Autocad, APoint
-#import openpyxl
 from Classes import Wall
 import Functions
 import math
@@ -7,42 +6,17 @@ import math
 file_Name="DATA_"
 add=".xlsm"
 sheet_Name="_ПС"
-#workbook = openpyxl.load_workbook(file_Name+add, data_only=True )
-
-#sheet=workbook[sheet_Name]
-
-#read_row=3
-#read_column=5
-#value=sheet.cell(row=read_row,column=read_column).value
 
 input_data=Wall()
 
 input_data.SetData(file_Name+add,sheet_Name)
-# input_data.name=sheet.cell(row=read_row,column=read_column).value#имя секции
-# input_data.name_founding=sheet.cell(row=read_row+1,column=read_column).value
-# input_data.name_wall=sheet.cell(row=read_row+3,column=read_column).value
-# input_data.count=sheet.cell(row=read_row+5,column=read_column).value
-# input_data.foundation_base=sheet.cell(row=read_row+6,column=read_column).value
-# input_data.leght=sheet.cell(row=read_row+7,column=read_column).value*1000
-# input_data.height_start=sheet.cell(row=read_row+8,column=read_column).value*1000
-# input_data.height_end=sheet.cell(row=read_row+9,column=read_column).value*1000
-# input_data.foundation_width=sheet.cell(row=read_row+10,column=read_column).value*1000
-# input_data.top_wall_width=sheet.cell(row=read_row+11,column=read_column).value*1000
-# input_data.edge_distance=sheet.cell(row=read_row+12,column=read_column).value*1000
-# input_data.bottom_wall_width=sheet.cell(row=read_row+13,column=read_column).value*1000
-# input_data.t1=sheet.cell(row=read_row+14,column=read_column).value*1000
-# input_data.t2=sheet.cell(row=read_row+15,column=read_column).value*1000
-# input_data.t3=sheet.cell(row=read_row+16,column=read_column).value*1000
-# input_data.t4=sheet.cell(row=read_row+17,column=read_column).value*1000
-# input_data.V1=sheet.cell(row=read_row+18,column=read_column).value
-# input_data.V2=sheet.cell(row=read_row+18,column=read_column).value
 
 input_data.ShowAll()
 
 
 #--\\ОТРИСОВКА\\--
 acad= Autocad(create_if_not_exists=False)
-print("Необходимо ввести точку вставки, поржалуйста перейдите в AutoCad")
+print("Необходимо ввести точку вставки, пожалуйста перейдите в AutoCad")
 start_point = acad.doc.Utility.GetPoint(APoint(0, 0), "Введите точку вставки: ")# ввод от пользователя точки вставки картинки в автокад
 
 incert_point=APoint(start_point[0],input_data.foundation_base)#Точка вставки - левый нижний угол фасада подпорной стены
@@ -152,7 +126,7 @@ Topology.append([31,32])
 #Выставление необходимого слоя
 acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка слоя для отрисовки 
 
-#Отрисовка
+#Отрисовка видов
 for item in Topology:
     start_point=APoint(SECTION_Coor[item[0]].x,SECTION_Coor[item[0]].y)
     end_point=APoint(SECTION_Coor[item[1]].x,SECTION_Coor[item[1]].y)
@@ -184,10 +158,41 @@ SizeTopology.append([15, 22, 0, 500,SizeStyle2])
 
 
 acad.doc.ActiveLayer = acad.doc.Layers.Item("Size") #установка слоя для отрисовки 
-#Отрисовка
+#Отрисовка размерных линий
 for item in SizeTopology:
     start_point = APoint(SECTION_Coor[item[0]].x, SECTION_Coor[item[0]].y )
     end_point = APoint(SECTION_Coor[item[1]].x, SECTION_Coor[item[1]].y )
     dim_position = Functions.GetSizePoint(start_point,end_point,item[2],item[3])
     dim_obj = acad.model.AddDimRotated(start_point, end_point, dim_position,item[2])
     
+# Создание таблицы ведомости объемов работ
+    
+acad.doc.ActiveLayer = acad.doc.Layers.Item("T_Border") #установка слоя для отрисовки 
+
+# Apoint (точка вставки, кол-во строк, кол-во столбцов, высота строки, ширина столбца) - таблица автоматически создается с объединенной 1-й строкой -типа название таблицы
+
+table = acad.model.AddTable(APoint(SECTION_Coor[19].x + 15000, SECTION_Coor[19].y + 5000),4,3,1000,1000) 
+
+#table.SetTextHeight(5) #высота текста 3 - задается для всей таблицы
+# Задать сразу правильные размеры столбцов и строк - нельзя. Поэтому изменяем их после создания таблицы другим методом:#
+#table.SetAligment(1+4)
+table.SetColumnWidth (0, 14500) # 1й столбец ширина = 145000
+table.SetColumnWidth (1, 1500)
+table.SetColumnWidth (2, 2500)
+
+table.SetRowHeight (0, 1500)
+table.SetRowHeight (1, 1500)
+table.SetRowHeight (2, 1300)
+table.SetRowHeight (3, 1300)
+
+#Заполнение текстом
+
+table.SetText (0, 0 , 'Ведомость основных объемов работ') # 1 строка 1 столбец " заголовок"
+table.SetText (1, 0 , 'Наименование работ')
+table.SetText (2, 0 , 'Ростверк подпорных стен монолитный железобетонный \n - бетон В30 F₁200 W8 ГОСТ 26633-2015')
+table.SetText (3, 0 , 'Тело подпорных стен монолитное железобетонное \n - бетон В30 F₁300 W8 ГОСТ 26633-2015')
+table.SetText (1, 1 , 'Ед.изм.')
+table.SetText (1, 2 , 'Кол.')
+table.SetText (2, 1 , 'м3')
+table.SetText (3, 1 , 'м3')
+
