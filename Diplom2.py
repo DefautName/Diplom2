@@ -146,7 +146,7 @@ Topology.append([31,32])
 SizeTopology=[]
 
 #Размеры видов в масштабе 1:100
-SizeStyle1 = 'LINE100'
+SizeStyle1 = 'LIN100'
 
 SizeTopology.append([1, 5, math.pi/2, 1000,SizeStyle1])
 SizeTopology.append([4, 6, 3*math.pi/2, 1000,SizeStyle1])
@@ -155,7 +155,7 @@ SizeTopology.append([23, 24, math.pi/2, 500,SizeStyle1])
 SizeTopology.append([23, 26, 0, 1000,SizeStyle1])
 
 #Размеры сечений в масштабе 1:50
-SizeStyle2 = 'LINE50'
+SizeStyle2 = 'LIN50'
 
 SizeTopology.append([7, 10, math.pi/2, 500,SizeStyle2])
 SizeTopology.append([7, 14, 0, 1000,SizeStyle2])
@@ -163,9 +163,9 @@ SizeTopology.append([7, 14, 0, 1000,SizeStyle2])
 SizeTopology.append([15, 18, math.pi/2, 500,SizeStyle2])
 SizeTopology.append([15, 22, 0, 500,SizeStyle2])
 
- 
 
 #Отрисовка видов
+index = 0 # Индекс для обращения к параметрам секции
 for SECTION_Coor in input_datas.sections_coors:
     #Выставление необходимого слоя
     acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка слоя для отрисовки
@@ -178,6 +178,7 @@ for SECTION_Coor in input_datas.sections_coors:
 
     #Отрисовка размерных линий
     for item in SizeTopology:
+        acad.doc.ActiveDimStyle = acad.doc.DimStyles.Item(item[4]) # Выставление необходимого размерного стиля 
         start_point = APoint(SECTION_Coor[item[0]].x, SECTION_Coor[item[0]].y )
         end_point = APoint(SECTION_Coor[item[1]].x, SECTION_Coor[item[1]].y )
         dim_position = Functions.GetSizePoint(start_point,end_point,item[2],item[3])
@@ -192,7 +193,7 @@ for SECTION_Coor in input_datas.sections_coors:
 
     #table.SetTextHeight(5) #высота текста 3 - задается для всей таблицы
     # Задать сразу правильные размеры столбцов и строк - нельзя. Поэтому изменяем их после создания таблицы другим методом:#
-    #table.SetAligment(1+4)
+    
     table.SetColumnWidth (0, 14500) # 1й столбец ширина = 145000
     table.SetColumnWidth (1, 1500)
     table.SetColumnWidth (2, 2500)
@@ -212,5 +213,6 @@ for SECTION_Coor in input_datas.sections_coors:
     table.SetText (1, 2 , 'Кол.')
     table.SetText (2, 1 , 'м3')
     table.SetText (3, 1 , 'м3')
-    #table.SetText (2, 2, round(input_data.V1 , 1))
-    #table.SetText (3, 2, round(input_data.V2 , 1))
+    table.SetText (2, 2, round(input_datas.sections[index].V1 , 1))
+    table.SetText (3, 2, round(input_datas.sections[index].V2 , 1))
+    index+=1
