@@ -24,3 +24,16 @@ def GetSizePoint (PointST, PointEND, TypeSizeLine, PositionSizeLine):
         else: rez.x = max(PointST.x, PointEND.x) + PositionSizeLine
    return rez
 
+# Функция расчета параметров рамки
+
+def GetRecSize(incert_point, max_width, max_height):
+    vertical_otstyp = 15000
+    horizontal_otstyp_left = 10000  
+    horizontal_otstyp_right = horizontal_otstyp_left * 3
+    H = max_height + vertical_otstyp * 2
+    B  = max_width + horizontal_otstyp_left + horizontal_otstyp_right
+    Point = APoint(incert_point.x - horizontal_otstyp_left, incert_point.y - max_height -  vertical_otstyp )
+    rez = [APoint, H, B]
+    return rez
+    
+

@@ -140,7 +140,7 @@ Topology.append([27,30])
 Topology.append([31,32])
 
 # Создание маcсива топологии для отрисовки размерных линий
-# Все размеры создаются строго слева направо или снозу вверх!!!    
+# Все размеры создаются строго слева направо или снизу вверх!!!    
 # [[x,y,Тип размера, Величина отступа]]   
  
 SizeTopology=[]
@@ -164,10 +164,27 @@ SizeTopology.append([15, 18, math.pi/2, 500,SizeStyle2])
 SizeTopology.append([15, 22, 0, 500,SizeStyle2])
 
 
+
 #Отрисовка видов
 index = 0 # Индекс для обращения к параметрам секции
 for SECTION_Coor in input_datas.sections_coors:
-    #Выставление необходимого слоя
+    
+    acad.doc.ActiveLayer = acad.doc.Layers.Item("Notes")
+    rec_size=Functions.GetRecSize(SECTION_Coor[1],(SECTION_Coor[22].x-SECTION_Coor[1].x),(SECTION_Coor[6].y-SECTION_Coor[26].y))
+  
+    #command = f"_-RECTANG _non {rec_size[0].x},{rec_size[0].y} _non {rec_size[0].x + rec_size[2]},{rec_size[0].y + rec_size[1]}\n"
+    #acad.doc.SendCommand(command)
+    points = [
+    APoint(rec_size[0].x, rec_size[0].y),
+    APoint(rec_size[0].x + rec_size[2], rec_size[0].y),
+    APoint(rec_size[0].x + rec_size[2], rec_size[0].y + rec_size[1]),
+    APoint(rec_size[0].x, rec_size[0].y + rec_size[1]),
+    APoint(rec_size[0].x, rec_size[0].y)  # замыкаем прямоугольник
+    ]
+    for it in range(1,len(points)):
+        acad.model.AddLine(points[it-1],points[it])    # Создание полилинии (прямоугольника)
+    #acad.model.AddPolyline(points)
+    #Выставление необходимого 
     acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка слоя для отрисовки
     for item in Topology:
         start_point=APoint(SECTION_Coor[item[0]].x,SECTION_Coor[item[0]].y)
