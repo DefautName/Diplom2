@@ -35,12 +35,12 @@ class Wall(object):
     t4: float #олщина перекрытия 2 у насыпи
     V1: float #объем ростверка подпорной стены, м3
     V2: float #объем стеновой части подпорной стены, м3
-
-    def SetData(self, filename, sheetName):
-        workbook = openpyxl.load_workbook(filename, data_only=True )
-        sheet=workbook[sheetName]
+        
+    def SetData(self, sheet,read_column):#filename, sheetName
+       # workbook = openpyxl.load_workbook(filename, data_only=True )
+       # sheet=workbook[sheetName]
         read_row=3
-        read_column=5
+        #read_column=5
         
         self.name=sheet.cell(row=read_row,column=read_column).value#имя секции
         self.name_founding=sheet.cell(row=read_row+1,column=read_column).value
@@ -59,7 +59,7 @@ class Wall(object):
         self.t3=sheet.cell(row=read_row+16,column=read_column).value*1000
         self.t4=sheet.cell(row=read_row+17,column=read_column).value*1000
         self.V1=sheet.cell(row=read_row+18,column=read_column).value
-        self.V2=sheet.cell(row=read_row+18,column=read_column).value
+        self.V2=sheet.cell(row=read_row+19,column=read_column).value
 
 
     def ShowAll(self):
@@ -85,9 +85,12 @@ class Wall(object):
         
 
 class Walls(object):
-    name: str
-    total_count: int
-  #  sections: List[Wall]
+    name: str # Название сооружения
+    total_count: int # Колличество секций в сооружении
+    sections=[] # Список классов(Wall) параметров секции
+    sections_coors=[] # Список списков координат секций 
+    
+    
 
 
 
