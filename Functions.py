@@ -33,7 +33,7 @@ def GetRecSize(incert_point, max_width, max_height):
     H = max_height + vertical_otstyp * 2
     B  = max_width + horizontal_otstyp_left + horizontal_otstyp_right
     Point = APoint(incert_point.x - horizontal_otstyp_left, incert_point.y - max_height -  vertical_otstyp )
-    rez = [APoint, H, B]
+    rez = [Point, H, B]
     return rez
     
 
