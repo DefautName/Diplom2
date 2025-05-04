@@ -1,9 +1,11 @@
-﻿from tkinter import ROUND
+﻿from tkinter import ROUND #????????
 from pyautocad import Autocad, APoint
 from Classes import Wall,Walls
 import Functions
 import math
 import openpyxl
+
+
 
 # Описание файла и поожения данных для выгрузки в питон
 file_Name="DATA_"
