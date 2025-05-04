@@ -210,3 +210,11 @@ def DrawAutocad(input_datas):
             table.SetText (2, 2, round(input_datas.sections[index].V1 , 1))
             table.SetText (3, 2, round(input_datas.sections[index].V2 , 1))
             index+=1
+            
+            #Вывод названий видов
+            acad.doc.ActiveLayer = acad.doc.Layers.Item("0")
+            to_view_dis=1950 # Расстояние от вида до его текста
+            # Будет встречаться несколько раз, можно выделить в отдельную функцию(Возможно вместе с отрисовкой)
+            fas_x=SECTION_Coor[Topology[5]].x+(SECTION_Coor[Topology[6]].x-SECTION_Coor[Topology[5]].x)/2
+            fas_y=max(Topology[5]].y,Topology[6]].y)
+            acad.model.AddText("Фасад (1 : 100)",APoint(),5)
