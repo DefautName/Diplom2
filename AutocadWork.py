@@ -216,5 +216,5 @@ def DrawAutocad(input_datas):
             to_view_dis=1950 # Расстояние от вида до его текста
             # Будет встречаться несколько раз, можно выделить в отдельную функцию(Возможно вместе с отрисовкой)
             fas_x=SECTION_Coor[Topology[5]].x+(SECTION_Coor[Topology[6]].x-SECTION_Coor[Topology[5]].x)/2
-            fas_y=max(Topology[5]].y,Topology[6]].y)
+            fas_y=max(Topology[5].y,Topology[6].y)
             acad.model.AddText("Фасад (1 : 100)",APoint(),5)

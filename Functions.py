@@ -36,4 +36,7 @@ def GetRecSize(incert_point, max_width, max_height):
     rez = [Point, H, B]
     return rez
     
+#
 
+def ConvertAdress(input_adress):
+    print("Convert adress")
