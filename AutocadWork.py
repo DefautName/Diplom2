@@ -209,22 +209,12 @@ def DrawAutocad(input_datas):
         table.SetText (3, 1 , 'м3')
         table.SetText (2, 2, round(input_datas.sections[index].V1 , 1))
         table.SetText (3, 2, round(input_datas.sections[index].V2 , 1))
+        index+=1
         
         #Вывод названий видов
-        acad.doc.ActiveLayer = acad.doc.Layers.Item("Text_B")
-        to_view_dis=2000 # Расстояние от вида до его текста
-        #Будет встречаться несколько раз, можно выделить в отдельную функцию(Возможно вместе с отрисовкой)
+        acad.doc.ActiveLayer = acad.doc.Layers.Item("0")
+        to_view_dis=1950 # Расстояние от вида до его текста
+        # Будет встречаться несколько раз, можно выделить в отдельную функцию(Возможно вместе с отрисовкой)
         #fas_x=SECTION_Coor[Topology[5]].x+(SECTION_Coor[Topology[6]].x-SECTION_Coor[Topology[5]].x)/2
         #fas_y=max(Topology[5].y,Topology[6].y)
-        text_fas=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[5],SECTION_Coor[6],to_view_dis),0,"Фасад " + input_datas.sections[index].name +"\n (1 : 100)")
-        text_fas.Height=400
-        text_fas.AttachmentPoint=5#ACAttachmentPoint.MiddleCenter
-        text_plan=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[24],SECTION_Coor[25],to_view_dis),0,"План (1 : 100)")
-        text_plan.Height=400
-        
-        text_1_1=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[10],SECTION_Coor[11],to_view_dis/2),0,"1 - 1 (1 : 50)")
-        text_1_1.Height=200
-        text_2_2=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[18],SECTION_Coor[19],to_view_dis/2),0,"2 - 2 (1 : 50)")
-        text_2_2.Height=200
-        
-        index+=1
+        #acad.model.AddText("Фасад (1 : 100)",APoint(),5)
