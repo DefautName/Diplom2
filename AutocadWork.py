@@ -1,6 +1,5 @@
 ﻿#Сюда переедет вся работа с автокадом
 from pyautocad import Autocad, APoint
-#from pyautocad. import ACAttachmentPoint
 from Classes import Wall,Walls
 import math
 import Functions
@@ -184,7 +183,7 @@ def DrawAutocad(input_datas):
 
         # Apoint (точка вставки, кол-во строк, кол-во столбцов, высота строки, ширина столбца) - таблица автоматически создается с объединенной 1-й строкой -типа название таблицы
 
-        table = acad.model.AddTable(APoint(points[2].x - 18500, points[2].y),4,3,1000,1000) 
+        table = acad.model.AddTable(APoint(SECTION_Coor[19].x + 15000, SECTION_Coor[19].y + 5000),4,3,1000,1000) 
 
         #table.SetTextHeight(5) #высота текста 3 - задается для всей таблицы
         # Задать сразу правильные размеры столбцов и строк - нельзя. Поэтому изменяем их после создания таблицы другим методом:#
