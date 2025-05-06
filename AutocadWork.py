@@ -177,7 +177,31 @@ def DrawAutocad(input_datas):
             end_point = APoint(SECTION_Coor[item[1]].x, SECTION_Coor[item[1]].y )
             dim_position = Functions.GetSizePoint(start_point,end_point,item[2],item[3])
             dim_obj = acad.model.AddDimRotated(start_point, end_point, dim_position,item[2])
-    
+            #Вставка блока отметки
+        
+        acad.model.InsertBlock(
+            APoint(SECTION_Coor[1].x+(SECTION_Coor[4].x- SECTION_Coor[1].x)/2  , input_datas.sections[index].foundation_base), #Точка вставки - SECTION_Coor[4].x)/2
+            'Otmetka', #Имя блока
+            100, #Масштаб по Х
+            100, #Y
+            100, #Z
+            0) #Угол поворота
+        
+        acad.model.InsertBlock(
+            SECTION_Coor[6], 
+            'Otmetka', 
+            100, 
+            100, 
+            100, 
+            0)
+        
+        acad.model.InsertBlock(
+            SECTION_Coor[5], 
+            'Otmetka', 
+            100, 
+            100, 
+            100, 
+            0)
         # Создание таблицы ведомости объемов работ
         acad.doc.ActiveLayer = acad.doc.Layers.Item("T_Border") #установка слоя для отрисовки 
 
@@ -211,6 +235,7 @@ def DrawAutocad(input_datas):
         table.SetText (3, 2, round(input_datas.sections[index].V2 , 1))
         
         #Вывод названий видов
+        
         acad.doc.ActiveLayer = acad.doc.Layers.Item("Text_B")
         to_view_dis=2000 # Расстояние от вида до его текста
         #Будет встречаться несколько раз, можно выделить в отдельную функцию(Возможно вместе с отрисовкой)
@@ -227,4 +252,6 @@ def DrawAutocad(input_datas):
         text_2_2=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[18],SECTION_Coor[19],to_view_dis/2),0,"2 - 2 (1 : 50)")
         text_2_2.Height=200
         
+
         index+=1
+

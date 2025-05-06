@@ -6,7 +6,7 @@ import AutocadWork
 
 
 # Описание файла и поожения данных для выгрузки в питон
-file_Name="DATA_.xlsm" #"C:/Users/Кузин Илья/Documents/Studing/Magistr/Сашин диплом/ProjectDip/DATA_.xlsm"
+file_Name="DATA_.xlsm" #"C:/Users/Ponka/Desktop/Диплом/Diplom2/DATA_.xlsm"
 sheet_Name="_ПС"
 #file_name = input("Введите имя фалла без расширения")# стоит проверить как он работает с путем к файлу и сделать два варианта воода имени файла
 #sheet_Name = input("Введите имя листа с которого будет считываться информация о секциях")
