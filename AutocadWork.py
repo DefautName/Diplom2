@@ -1,6 +1,5 @@
 ﻿#Сюда переедет вся работа с автокадом
 from pyautocad import Autocad, APoint
-#from pyautocad. import ACAttachmentPoint
 from Classes import Wall,Walls
 import math
 import Functions
@@ -203,15 +202,16 @@ def DrawAutocad(input_datas):
         table.SetText (0, 0 , 'Ведомость основных объемов работ') # 1 строка 1 столбец " заголовок"
         table.SetText (1, 0 , 'Наименование работ')
         table.SetText (2, 0 , 'Ростверк подпорных стен монолитный железобетонный \n - бетон В30 F{\\S1^;}200 W8 ГОСТ 26633-2015')
-        table.SetText (3, 0 , 'Тело подпорных стен монолитное железобетонное \n - бетон В30 F{\\S^1;}300 W8 ГОСТ 26633-2015')
+        table.SetText (3, 0 , 'Тело подпорных стен монолитное железобетонное \n - бетон В30 F{\\S^1;}₁300 W8 ГОСТ 26633-2015')
         table.SetText (1, 1 , 'Ед.изм.')
         table.SetText (1, 2 , 'Кол.')
         table.SetText (2, 1 , 'м3')
         table.SetText (3, 1 , 'м3')
         table.SetText (2, 2, round(input_datas.sections[index].V1 , 1))
         table.SetText (3, 2, round(input_datas.sections[index].V2 , 1))
+        index+=1
         
-        
+             
         #Вывод названий видов
         acad.doc.ActiveLayer = acad.doc.Layers.Item("Text_B")
         to_view_dis=2000 # Расстояние от вида до его текста
@@ -230,4 +230,4 @@ def DrawAutocad(input_datas):
         text_2_2.Height=200
         
         index+=1
-
+#acad.model.AddText("Фасад (1 : 100)",APoint(),5)

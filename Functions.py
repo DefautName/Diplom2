@@ -40,10 +40,9 @@ def GetRecSize(incert_point, max_width, max_height):
 
 def ConvertAdress(input_adress):
     print("Convert adress")
-    
-def GetStringPoint(point1, point2,up_dist):
-    rez=APoint(0,0)
-    rez.x=point1.x+(point2.x-point1.x)/4
-    rez.y=max(point1.y,point2.y)+up_dist
-    return rez
+    def GetStringPoint(point1, point2,up_dist):
+        rez=APoint(0,0)
+        rez.x=point1.x+(point2.x-point1.x)/4
+        rez.y=max(point1.y,point2.y)+up_dist
+        return rez
 

@@ -28,7 +28,7 @@ while sheet.cell(row=read_row,column=read_column).value != None:#"None"
     input_datas.sections.append(input_data)
     read_column+=1
  
-print("Отрисовать виды в Автокад?\n1. ДА \n2. НЕТ")
+#print("Отрисовать виды в Автокад?\n1. ДА \n2. НЕТ")
 # Нужно ли здесь зацикливание?, зачем два раза отрисовывать? 
 #choice=int(input())
 #if choice == 1:
