@@ -142,79 +142,79 @@ def DrawAutocad(input_datas):
 
 
 
-        #Отрисовка видов
-        index = 0 # Индекс для обращения к параметрам секции
-        for SECTION_Coor in input_datas.sections_coors:
+    #Отрисовка видов
+    index = 0 # Индекс для обращения к параметрам секции
+    for SECTION_Coor in input_datas.sections_coors:
     
-            acad.doc.ActiveLayer = acad.doc.Layers.Item("Notes")
-            rec_size=Functions.GetRecSize(SECTION_Coor[1],(SECTION_Coor[22].x-SECTION_Coor[1].x),(SECTION_Coor[6].y-SECTION_Coor[26].y))
+        acad.doc.ActiveLayer = acad.doc.Layers.Item("Notes")
+        rec_size=Functions.GetRecSize(SECTION_Coor[1],(SECTION_Coor[22].x-SECTION_Coor[1].x),(SECTION_Coor[6].y-SECTION_Coor[26].y))
   
-            #command = f"_-RECTANG _non {rec_size[0].x},{rec_size[0].y} _non {rec_size[0].x + rec_size[2]},{rec_size[0].y + rec_size[1]}\n"
-            #acad.doc.SendCommand(command)
-            points = [
-            APoint(rec_size[0].x, rec_size[0].y),
-            APoint(rec_size[0].x + rec_size[2], rec_size[0].y),
-            APoint(rec_size[0].x + rec_size[2], rec_size[0].y + rec_size[1]),
-            APoint(rec_size[0].x, rec_size[0].y + rec_size[1]),
-            APoint(rec_size[0].x, rec_size[0].y)  # замыкаем прямоугольник
-            ]
-            for it in range(1,len(points)):
-                acad.model.AddLine(points[it-1],points[it])    # Создание полилинии (прямоугольника)
-            #acad.model.AddPolyline(points)
-            #Выставление необходимого 
-            acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка слоя для отрисовки
-            for item in Topology:
-                start_point=APoint(SECTION_Coor[item[0]].x,SECTION_Coor[item[0]].y)
-                end_point=APoint(SECTION_Coor[item[1]].x,SECTION_Coor[item[1]].y)
-                acad.model.AddLine(start_point,end_point)
+        #command = f"_-RECTANG _non {rec_size[0].x},{rec_size[0].y} _non {rec_size[0].x + rec_size[2]},{rec_size[0].y + rec_size[1]}\n"
+        #acad.doc.SendCommand(command)
+        points = [
+        APoint(rec_size[0].x, rec_size[0].y),
+        APoint(rec_size[0].x + rec_size[2], rec_size[0].y),
+        APoint(rec_size[0].x + rec_size[2], rec_size[0].y + rec_size[1]),
+        APoint(rec_size[0].x, rec_size[0].y + rec_size[1]),
+        APoint(rec_size[0].x, rec_size[0].y)  # замыкаем прямоугольник
+        ]
+        for it in range(1,len(points)):
+            acad.model.AddLine(points[it-1],points[it])    # Создание полилинии (прямоугольника)
+        #acad.model.AddPolyline(points)
+        #Выставление необходимого 
+        acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка слоя для отрисовки
+        for item in Topology:
+            start_point=APoint(SECTION_Coor[item[0]].x,SECTION_Coor[item[0]].y)
+            end_point=APoint(SECTION_Coor[item[1]].x,SECTION_Coor[item[1]].y)
+            acad.model.AddLine(start_point,end_point)
         
-            acad.doc.ActiveLayer = acad.doc.Layers.Item("Size") #установка слоя для отрисовки 
+        acad.doc.ActiveLayer = acad.doc.Layers.Item("Size") #установка слоя для отрисовки 
 
-            #Отрисовка размерных линий
-            for item in SizeTopology:
-                acad.doc.ActiveDimStyle = acad.doc.DimStyles.Item(item[4]) # Выставление необходимого размерного стиля 
-                start_point = APoint(SECTION_Coor[item[0]].x, SECTION_Coor[item[0]].y )
-                end_point = APoint(SECTION_Coor[item[1]].x, SECTION_Coor[item[1]].y )
-                dim_position = Functions.GetSizePoint(start_point,end_point,item[2],item[3])
-                dim_obj = acad.model.AddDimRotated(start_point, end_point, dim_position,item[2])
+        #Отрисовка размерных линий
+        for item in SizeTopology:
+            acad.doc.ActiveDimStyle = acad.doc.DimStyles.Item(item[4]) # Выставление необходимого размерного стиля 
+            start_point = APoint(SECTION_Coor[item[0]].x, SECTION_Coor[item[0]].y )
+            end_point = APoint(SECTION_Coor[item[1]].x, SECTION_Coor[item[1]].y )
+            dim_position = Functions.GetSizePoint(start_point,end_point,item[2],item[3])
+            dim_obj = acad.model.AddDimRotated(start_point, end_point, dim_position,item[2])
     
-            # Создание таблицы ведомости объемов работ
-            acad.doc.ActiveLayer = acad.doc.Layers.Item("T_Border") #установка слоя для отрисовки 
+        # Создание таблицы ведомости объемов работ
+        acad.doc.ActiveLayer = acad.doc.Layers.Item("T_Border") #установка слоя для отрисовки 
 
-            # Apoint (точка вставки, кол-во строк, кол-во столбцов, высота строки, ширина столбца) - таблица автоматически создается с объединенной 1-й строкой -типа название таблицы
+        # Apoint (точка вставки, кол-во строк, кол-во столбцов, высота строки, ширина столбца) - таблица автоматически создается с объединенной 1-й строкой -типа название таблицы
 
-            table = acad.model.AddTable(APoint(SECTION_Coor[19].x + 15000, SECTION_Coor[19].y + 5000),4,3,1000,1000) 
+        table = acad.model.AddTable(APoint(SECTION_Coor[19].x + 15000, SECTION_Coor[19].y + 5000),4,3,1000,1000) 
 
-            #table.SetTextHeight(5) #высота текста 3 - задается для всей таблицы
-            # Задать сразу правильные размеры столбцов и строк - нельзя. Поэтому изменяем их после создания таблицы другим методом:#
+        #table.SetTextHeight(5) #высота текста 3 - задается для всей таблицы
+        # Задать сразу правильные размеры столбцов и строк - нельзя. Поэтому изменяем их после создания таблицы другим методом:#
     
-            table.SetColumnWidth (0, 14500) # 1й столбец ширина = 145000
-            table.SetColumnWidth (1, 1500)
-            table.SetColumnWidth (2, 2500)
+        table.SetColumnWidth (0, 14500) # 1й столбец ширина = 145000
+        table.SetColumnWidth (1, 1500)
+        table.SetColumnWidth (2, 2500)
 
-            table.SetRowHeight (0, 1500)
-            table.SetRowHeight (1, 1500)
-            table.SetRowHeight (2, 1300)
-            table.SetRowHeight (3, 1300)
+        table.SetRowHeight (0, 1500)
+        table.SetRowHeight (1, 1500)
+        table.SetRowHeight (2, 1300)
+        table.SetRowHeight (3, 1300)
 
-            #Заполнение текстом
+        #Заполнение текстом
 
-            table.SetText (0, 0 , 'Ведомость основных объемов работ') # 1 строка 1 столбец " заголовок"
-            table.SetText (1, 0 , 'Наименование работ')
-            table.SetText (2, 0 , 'Ростверк подпорных стен монолитный железобетонный \n - бетон В30 F₁200 W8 ГОСТ 26633-2015')
-            table.SetText (3, 0 , 'Тело подпорных стен монолитное железобетонное \n - бетон В30 F₁300 W8 ГОСТ 26633-2015')
-            table.SetText (1, 1 , 'Ед.изм.')
-            table.SetText (1, 2 , 'Кол.')
-            table.SetText (2, 1 , 'м3')
-            table.SetText (3, 1 , 'м3')
-            table.SetText (2, 2, round(input_datas.sections[index].V1 , 1))
-            table.SetText (3, 2, round(input_datas.sections[index].V2 , 1))
-            index+=1
-            
-            #Вывод названий видов
-            acad.doc.ActiveLayer = acad.doc.Layers.Item("0")
-            to_view_dis=1950 # Расстояние от вида до его текста
-            # Будет встречаться несколько раз, можно выделить в отдельную функцию(Возможно вместе с отрисовкой)
-            fas_x=SECTION_Coor[Topology[5]].x+(SECTION_Coor[Topology[6]].x-SECTION_Coor[Topology[5]].x)/2
-            fas_y=max(Topology[5].y,Topology[6].y)
-            acad.model.AddText("Фасад (1 : 100)",APoint(),5)
+        table.SetText (0, 0 , 'Ведомость основных объемов работ') # 1 строка 1 столбец " заголовок"
+        table.SetText (1, 0 , 'Наименование работ')
+        table.SetText (2, 0 , 'Ростверк подпорных стен монолитный железобетонный \n - бетон В30 F{\\S1^;}200 W8 ГОСТ 26633-2015')
+        table.SetText (3, 0 , 'Тело подпорных стен монолитное железобетонное \n - бетон В30 F{\\S^1;}₁300 W8 ГОСТ 26633-2015')
+        table.SetText (1, 1 , 'Ед.изм.')
+        table.SetText (1, 2 , 'Кол.')
+        table.SetText (2, 1 , 'м3')
+        table.SetText (3, 1 , 'м3')
+        table.SetText (2, 2, round(input_datas.sections[index].V1 , 1))
+        table.SetText (3, 2, round(input_datas.sections[index].V2 , 1))
+        index+=1
+        
+        #Вывод названий видов
+        acad.doc.ActiveLayer = acad.doc.Layers.Item("0")
+        to_view_dis=1950 # Расстояние от вида до его текста
+        # Будет встречаться несколько раз, можно выделить в отдельную функцию(Возможно вместе с отрисовкой)
+        #fas_x=SECTION_Coor[Topology[5]].x+(SECTION_Coor[Topology[6]].x-SECTION_Coor[Topology[5]].x)/2
+        #fas_y=max(Topology[5].y,Topology[6].y)
+        #acad.model.AddText("Фасад (1 : 100)",APoint(),5)
