@@ -30,8 +30,8 @@ while sheet.cell(row=read_row,column=read_column).value != None:#"None"
  
 print("Отрисовать виды в Автокад?\n1. ДА \n2. НЕТ")
 # Нужно ли здесь зацикливание?, зачем два раза отрисовывать? 
-choice=int(input())
-if choice == 1:
-    AutocadWork.DrawAutocad(input_datas)
-else:
-    print("Выход из программы")
+# choice=int(input())
+# if choice == 1:
+AutocadWork.DrawAutocad(input_datas)
+# else:
+#     print("Выход из программы")
