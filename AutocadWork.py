@@ -32,7 +32,7 @@ def DrawAutocad(input_datas):
         #Вид 1-1
         #Задаем точку НК чтобы каждый вид считать от 0.0 а не прибавлять все расстояния в каждой точке
         start_coordinates = APoint(incert_point.x + input_data.leght + View_l1, incert_point.y) 
-        print("start coordinate: " + str(start_coordinates.x) +" " + str(start_coordinates.y))
+        #print("start coordinate: " + str(start_coordinates.x) +" " + str(start_coordinates.y))
 
         SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y))#7
         SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y + input_data.t2))#8
@@ -74,71 +74,71 @@ def DrawAutocad(input_datas):
         input_datas.sections_coors.append(SECTION_Coor)
 
 
-        #Массив топологии видов стенок
-        #Отрисовка ведется отрезками.Заполняем список мини-спиками - в которых записано начало и конец отрезка
+    #Массив топологии видов стенок
+    #Отрисовка ведется отрезками.Заполняем список мини-спиками - в которых записано начало и конец отрезка
 
-        Topology=[]
+    Topology=[]
 
-        #Фасад
+    #Фасад
 
-        Topology.append([1,4])
-        Topology.append([2,3])
-        Topology.append([5,6])
-        Topology.append([1,5])
-        Topology.append([4,6])
+    Topology.append([1,4])
+    Topology.append([2,3])
+    Topology.append([5,6])
+    Topology.append([1,5])
+    Topology.append([4,6])
 
-        #Вид 1-1
-        Topology.append([7,8])
-        Topology.append([8,9])
-        Topology.append([9,10])
-        Topology.append([10,11])
-        Topology.append([11,12])
-        Topology.append([12,13])
-        Topology.append([13,14])
-        Topology.append([14,7])
+    #План
+    Topology.append([23,24])
+    Topology.append([24,25])
+    Topology.append([25,26])
+    Topology.append([26,23])
+    Topology.append([28,29])
+    Topology.append([27,30])
+    Topology.append([31,32])
+        
+    #Вид 1-1
+    Topology.append([7,8])
+    Topology.append([8,9])
+    Topology.append([9,10])
+    Topology.append([10,11])
+    Topology.append([11,12])
+    Topology.append([12,13])
+    Topology.append([13,14])
+    Topology.append([14,7])
+        
+    #Вид 2-2
+    Topology.append([15,16])
+    Topology.append([16,17])
+    Topology.append([17,18])
+    Topology.append([18,19])
+    Topology.append([19,20])
+    Topology.append([20,21])
+    Topology.append([21,22])
+    Topology.append([22,15])
 
-        #Вид 2-2
-        Topology.append([15,16])
-        Topology.append([16,17])
-        Topology.append([17,18])
-        Topology.append([18,19])
-        Topology.append([19,20])
-        Topology.append([20,21])
-        Topology.append([21,22])
-        Topology.append([22,15])
-
-        #План
-        Topology.append([23,24])
-        Topology.append([24,25])
-        Topology.append([25,26])
-        Topology.append([26,23])
-        Topology.append([28,29])
-        Topology.append([27,30])
-        Topology.append([31,32])
-
-        # Создание маcсива топологии для отрисовки размерных линий
-        # Все размеры создаются строго слева направо или снизу вверх!!!    
-        # [[x,y,Тип размера, Величина отступа]]   
+    # Создание маcсива топологии для отрисовки размерных линий
+    # Все размеры создаются строго слева направо или снизу вверх!!!    
+    # [[x,y,Тип размера, Величина отступа]]   
  
-        SizeTopology=[]
+    SizeTopology=[]
 
-        #Размеры видов в масштабе 1:100
-        SizeStyle1 = 'LIN100'
+    #Размеры видов в масштабе 1:100
+    SizeStyle1 = 'LIN100'
 
-        SizeTopology.append([1, 5, math.pi/2, 1000,SizeStyle1])
-        SizeTopology.append([4, 6, 3*math.pi/2, 1000,SizeStyle1])
+    SizeTopology.append([1, 5, math.pi/2, 1000,SizeStyle1])
+    SizeTopology.append([4, 6, 3*math.pi/2, 1000,SizeStyle1])
 
-        SizeTopology.append([23, 24, math.pi/2, 500,SizeStyle1])
-        SizeTopology.append([23, 26, 0, 1000,SizeStyle1])
+    SizeTopology.append([23, 24, math.pi/2, 500,SizeStyle1])
+    SizeTopology.append([23, 26, 0, 1000,SizeStyle1])
 
-        #Размеры сечений в масштабе 1:50
-        SizeStyle2 = 'LIN50'
+    #Размеры сечений в масштабе 1:50
+    SizeStyle2 = 'LIN50'
 
-        SizeTopology.append([7, 10, math.pi/2, 500,SizeStyle2])
-        SizeTopology.append([7, 14, 0, 1000,SizeStyle2])
-
-        SizeTopology.append([15, 18, math.pi/2, 500,SizeStyle2])
-        SizeTopology.append([15, 22, 0, 500,SizeStyle2])
+    SizeTopology.append([7, 10, math.pi/2, 500,SizeStyle2])
+    SizeTopology.append([7, 14, 0, 1000,SizeStyle2])
+        
+    SizeTopology.append([15, 18, math.pi/2, 500,SizeStyle2])
+    SizeTopology.append([15, 22, 0, 500,SizeStyle2])
 
 
 
@@ -161,12 +161,15 @@ def DrawAutocad(input_datas):
         for it in range(1,len(points)):
             acad.model.AddLine(points[it-1],points[it])    # Создание полилинии (прямоугольника)
 
-        #Выставление необходимого 
+        #Выставление необходимого слоя
         acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка слоя для отрисовки
-        for item in Topology:
-            start_point=APoint(SECTION_Coor[item[0]].x,SECTION_Coor[item[0]].y)
-            end_point=APoint(SECTION_Coor[item[1]].x,SECTION_Coor[item[1]].y)
+        for item in range(0,len(Topology)):
+            start_point=APoint(SECTION_Coor[Topology[item][0]].x,SECTION_Coor[Topology[item][0]].y)
+            end_point=APoint(SECTION_Coor[Topology[item][1]].x,SECTION_Coor[Topology[item][1]].y)
             acad.model.AddLine(start_point,end_point)
+            if input_datas.sections[index].height_end == input_datas.sections[index].height_start and item == 19:
+                break
+
         
         acad.doc.ActiveLayer = acad.doc.Layers.Item("Size") #установка слоя для отрисовки 
 
@@ -253,8 +256,9 @@ def DrawAutocad(input_datas):
         text_plan.Height=400
         text_1_1=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[10],SECTION_Coor[11],to_view_dis/2),0,"1 - 1 (1 : 50)")
         text_1_1.Height=200
-        text_2_2=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[18],SECTION_Coor[19],to_view_dis/2),0,"2 - 2 (1 : 50)")
-        text_2_2.Height=200
+        if input_datas.sections[index].height_end != input_datas.sections[index].height_start:
+            text_2_2=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[18],SECTION_Coor[19],to_view_dis/2),0,"2 - 2 (1 : 50)")
+            text_2_2.Height=200
         
 
         index+=1
