@@ -160,7 +160,7 @@ def DrawAutocad(input_datas):
         ]
         for it in range(1,len(points)):
             acad.model.AddLine(points[it-1],points[it])    # Создание полилинии (прямоугольника)
-        #acad.model.AddPolyline(points)
+
         #Выставление необходимого 
         acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка слоя для отрисовки
         for item in Topology:
@@ -177,7 +177,8 @@ def DrawAutocad(input_datas):
             end_point = APoint(SECTION_Coor[item[1]].x, SECTION_Coor[item[1]].y )
             dim_position = Functions.GetSizePoint(start_point,end_point,item[2],item[3])
             dim_obj = acad.model.AddDimRotated(start_point, end_point, dim_position,item[2])
-            #Вставка блока отметки
+            
+        # Вставка блока отметки
         
         acad.model.InsertBlock(
             APoint(SECTION_Coor[1].x+(SECTION_Coor[4].x- SECTION_Coor[1].x)/2  , input_datas.sections[index].foundation_base), #Точка вставки - SECTION_Coor[4].x)/2
@@ -226,7 +227,7 @@ def DrawAutocad(input_datas):
         table.SetText (0, 0 , 'Ведомость основных объемов работ') # 1 строка 1 столбец " заголовок"
         table.SetText (1, 0 , 'Наименование работ')
         table.SetText (2, 0 , 'Ростверк подпорных стен монолитный железобетонный \n - бетон В30 F{\\S1^;}200 W8 ГОСТ 26633-2015')
-        table.SetText (3, 0 , 'Тело подпорных стен монолитное железобетонное \n - бетон В30 F{\\S^1;}₁300 W8 ГОСТ 26633-2015')
+        table.SetText (3, 0 , 'Тело подпорных стен монолитное железобетонное \n - бетон В30 F{\\S1^;}300 W8 ГОСТ 26633-2015')
         table.SetText (1, 1 , 'Ед.изм.')
         table.SetText (1, 2 , 'Кол.')
         table.SetText (2, 1 , 'м3')
@@ -234,19 +235,22 @@ def DrawAutocad(input_datas):
         table.SetText (2, 2, round(input_datas.sections[index].V1 , 1))
         table.SetText (3, 2, round(input_datas.sections[index].V2 , 1))
         
+        # Редактирование высоты текста в таблице
+        table_text_height=350
+        for row in range(table.Rows):
+            for col in range(table.Columns):
+                table.SetCellTextHeight(row, col, table_text_height)
+                    
         #Вывод названий видов
-        
+
         acad.doc.ActiveLayer = acad.doc.Layers.Item("Text_B")
         to_view_dis=2000 # Расстояние от вида до его текста
-        #Будет встречаться несколько раз, можно выделить в отдельную функцию(Возможно вместе с отрисовкой)
-        #fas_x=SECTION_Coor[Topology[5]].x+(SECTION_Coor[Topology[6]].x-SECTION_Coor[Topology[5]].x)/2
-        #fas_y=max(Topology[5].y,Topology[6].y)
+
         text_fas=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[5],SECTION_Coor[6],to_view_dis),0,"Фасад " + input_datas.sections[index].name +"\n (1 : 100)")
         text_fas.Height=400
-        text_fas.AttachmentPoint=5#ACAttachmentPoint.MiddleCenter
+        text_fas.AttachmentPoint=5#ACAttachmentPoint.MiddleCenter Выравнивание текста по центру  
         text_plan=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[24],SECTION_Coor[25],to_view_dis),0,"План (1 : 100)")
         text_plan.Height=400
-        
         text_1_1=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[10],SECTION_Coor[11],to_view_dis/2),0,"1 - 1 (1 : 50)")
         text_1_1.Height=200
         text_2_2=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[18],SECTION_Coor[19],to_view_dis/2),0,"2 - 2 (1 : 50)")
