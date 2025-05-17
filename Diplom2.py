@@ -2,7 +2,7 @@
 import Functions
 import openpyxl
 import AutocadWork
-
+import TeklaWork
 
 
 # Описание файла и поожения данных для выгрузки в питон
@@ -23,7 +23,7 @@ while sheet.cell(row=read_row,column=read_column).value != None:#"None"
    # print(sheet.cell(row=read_row,column=read_column).value)
     input_data = Wall()
     input_data.SetData(sheet,read_column)
-    print(input_data.name)
+    #print(input_data.name)
     input_datas.total_count += 1
     input_datas.sections.append(input_data)
     read_column+=1
@@ -32,6 +32,9 @@ print("Отрисовать виды в Автокад?\n1. ДА \n2. НЕТ")
 # Нужно ли здесь зацикливание?, зачем два раза отрисовывать? 
 #choice=int(input())
 #if choice == 1:
-AutocadWork.DrawAutocad(input_datas)
+
+#AutocadWork.DrawAutocad(input_datas)
+komp_name="test"#"Подпст1"
+TeklaWork.InputIKomponent(input_datas,komp_name)
 #else:
 #    print("Выход из программы")
