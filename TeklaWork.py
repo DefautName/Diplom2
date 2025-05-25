@@ -20,7 +20,7 @@ def InputIKomponent(input_datas,komponent_name):
 
     beam = Beam()
     beam.StartPoint = Point(0, 0, 0)
-    beam.EndPoint = Point(0, 50000, 0)
+    beam.EndPoint = Point(0, 0, 5000)
     beam.Profile.ProfileString = "HEA300"
     beam.Material.MaterialString = "S235JR"
     beam.Class = "3"
