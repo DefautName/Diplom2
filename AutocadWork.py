@@ -14,6 +14,7 @@ def DrawAutocad(input_datas):
     View_l1 = 5000 #расстояние между фасадом и сечением 1-1 (по горизонтали)
     View_l2 = 5000 #расстояние сечением 1-1 и сечением 2-2 (по горизонтали)
     View_l3 =  10000 #расстояние между фасадом и планом (по вертикали)
+    
     i=0
     for input_data in input_datas.sections:
         incert_point=APoint(start_point[0]+Line_distance*i,input_data.foundation_base)#Точка вставки - левый нижний угол фасада подпорной стены
@@ -33,15 +34,15 @@ def DrawAutocad(input_datas):
         #Задаем точку НК чтобы каждый вид считать от 0.0 а не прибавлять все расстояния в каждой точке
         start_coordinates = APoint(incert_point.x + input_data.leght + View_l1, incert_point.y) 
         print("start coordinate: " + str(start_coordinates.x) +" " + str(start_coordinates.y))
-
-        SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y))#7
-        SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y + input_data.t2))#8
-        SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance , start_coordinates.y + input_data.t1))#9
-        SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance , start_coordinates.y + input_data.height_start))#10
-        SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance + input_data.top_wall_width, start_coordinates.y + input_data.height_start))#11
-        SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance + input_data.bottom_wall_width, start_coordinates.y + input_data.t3))#12
-        SECTION_Coor.append(APoint(start_coordinates.x + input_data.foundation_width, start_coordinates.y + input_data.t4))#13
-        SECTION_Coor.append(APoint(start_coordinates.x + input_data.foundation_width, start_coordinates.y))#14
+         
+        SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y)) #7
+        SECTION_Coor.append(APoint(start_coordinates.x, start_coordinates.y + input_data.t2)) #8 
+        SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance , start_coordinates.y + input_data.t1)) #9
+        SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance , start_coordinates.y + input_data.height_start)) #10
+        SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance + input_data.top_wall_width, start_coordinates.y + input_data.height_start)) #11
+        SECTION_Coor.append(APoint(start_coordinates.x + input_data.edge_distance + input_data.bottom_wall_width, start_coordinates.y + input_data.t3)) #12
+        SECTION_Coor.append(APoint(start_coordinates.x + input_data.foundation_width, start_coordinates.y + input_data.t4)) #13
+        SECTION_Coor.append(APoint(start_coordinates.x + input_data.foundation_width, start_coordinates.y)) #14
 
         #Вид 2-2
         #Задаем точку НК чтобы каждый вид считать от 0.0 а не прибавлять все расстояния в каждой точке
@@ -86,6 +87,7 @@ def DrawAutocad(input_datas):
         Topology.append([5,6])
         Topology.append([1,5])
         Topology.append([4,6])
+        
 
         #Вид 1-1
         Topology.append([7,8])
@@ -118,27 +120,37 @@ def DrawAutocad(input_datas):
 
         # Создание маcсива топологии для отрисовки размерных линий
         # Все размеры создаются строго слева направо или снизу вверх!!!    
-        # [[x,y,Тип размера, Величина отступа]]   
+        # [Перавя точка, вторая точка, угол поворота размерной линии, отступ размерной линии, стиль]   
  
         SizeTopology=[]
 
         #Размеры видов в масштабе 1:100
         SizeStyle1 = 'LIN100'
-
         SizeTopology.append([1, 5, math.pi/2, 1000,SizeStyle1])
         SizeTopology.append([4, 6, 3*math.pi/2, 1000,SizeStyle1])
 
-        SizeTopology.append([23, 24, math.pi/2, 500,SizeStyle1])
+        SizeTopology.append([23, 24, math.pi/2, 1200,SizeStyle1])
+        SizeTopology.append([23, 27, math.pi/2, 500,SizeStyle1])
+        SizeTopology.append([27, 28, math.pi/2, 500,SizeStyle1])
+        SizeTopology.append([28, 24, math.pi/2, 500,SizeStyle1])
         SizeTopology.append([23, 26, 0, 1000,SizeStyle1])
 
         #Размеры сечений в масштабе 1:50
         SizeStyle2 = 'LIN50'
 
-        SizeTopology.append([7, 10, math.pi/2, 500,SizeStyle2])
-        SizeTopology.append([7, 14, 0, 1000,SizeStyle2])
+        SizeTopology.append([7, 10, math.pi/2, 1000,SizeStyle2])
+        SizeTopology.append([7, 8, math.pi/2, 500,SizeStyle2])
+        SizeTopology.append([7, 14, 0, 500,SizeStyle2])
+        SizeTopology.append([10, 11, math.pi, 300,SizeStyle2])
+        SizeTopology.append([11, 12, math.pi, 300,SizeStyle2])
+        SizeTopology.append([14, 13,math.pi*1.5, 500,SizeStyle2])
 
-        SizeTopology.append([15, 18, math.pi/2, 500,SizeStyle2])
+        SizeTopology.append([15, 18, math.pi/2, 1000,SizeStyle2])
+        SizeTopology.append([15, 16, math.pi/2, 500,SizeStyle2])
         SizeTopology.append([15, 22, 0, 500,SizeStyle2])
+        SizeTopology.append([18, 19, math.pi, 300,SizeStyle2])
+        SizeTopology.append([19, 20, math.pi, 300,SizeStyle2])
+        SizeTopology.append([22, 21,math.pi*1.5, 500,SizeStyle2])
 
 
 
@@ -149,7 +161,7 @@ def DrawAutocad(input_datas):
         acad.doc.ActiveLayer = acad.doc.Layers.Item("Notes")
         rec_size=Functions.GetRecSize(SECTION_Coor[1],(SECTION_Coor[22].x-SECTION_Coor[1].x),(SECTION_Coor[6].y-SECTION_Coor[26].y))
   
-        #command = f"_-RECTANG _non {rec_size[0].x},{rec_size[0].y} _non {rec_size[0].x + rec_size[2]},{rec_size[0].y + rec_size[1]}\n"
+       
         #acad.doc.SendCommand(command)
         points = [
         APoint(rec_size[0].x, rec_size[0].y),
@@ -176,6 +188,7 @@ def DrawAutocad(input_datas):
             start_point = APoint(SECTION_Coor[item[0]].x, SECTION_Coor[item[0]].y )
             end_point = APoint(SECTION_Coor[item[1]].x, SECTION_Coor[item[1]].y )
             dim_position = Functions.GetSizePoint(start_point,end_point,item[2],item[3])
+            #
             dim_obj = acad.model.AddDimRotated(start_point, end_point, dim_position,item[2])
             
         # Вставка блока отметки
@@ -204,7 +217,7 @@ def DrawAutocad(input_datas):
             100, 
             0)
         # Создание таблицы ведомости объемов работ
-        acad.doc.ActiveLayer = acad.doc.Layers.Item("T_Border") #установка слоя для отрисовки 
+        acad.doc.ActiveLayer = acad.doc.Layers.Item("T_Text") #установка слоя для отрисовки 
 
         # Apoint (точка вставки, кол-во строк, кол-во столбцов, высота строки, ширина столбца) - таблица автоматически создается с объединенной 1-й строкой -типа название таблицы
 
@@ -244,7 +257,7 @@ def DrawAutocad(input_datas):
         #Вывод названий видов
 
         acad.doc.ActiveLayer = acad.doc.Layers.Item("Text_B")
-        to_view_dis=2000 # Расстояние от вида до его текста
+        to_view_dis=2500 # Расстояние от вида до его текста
 
         text_fas=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[5],SECTION_Coor[6],to_view_dis),0,"Фасад " + input_datas.sections[index].name +"\n (1 : 100)")
         text_fas.Height=400

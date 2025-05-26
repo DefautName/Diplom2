@@ -5,11 +5,10 @@ from pyautocad import APoint
 #Функция для работы с размерами. 
 
 # PointST - APoint начальной точки размера
-# PointEND - APoint конечнойй точки размера
-# TypeSizeLine - Int тип - размера (горизонтальный  0 / вертикальный 1)
-# PositionSizeLine - Float отступ - положение размерной линии (<0 - размер идет влево или вниз, >0 вправо или вверх) 
+# PointEND - APoint конечной точки размера
+# TypeSizeLine - Int тип - размера (горизонтальный или вертикальный)
+# PositionSizeLine - Float отступ размерной линии 
 
- 
 def GetSizePoint (PointST, PointEND, TypeSizeLine, PositionSizeLine):
    rez = APoint(0,0)
    if TypeSizeLine == 0  or TypeSizeLine == math.pi: 
