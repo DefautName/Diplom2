@@ -24,8 +24,8 @@ def InputIKomponent(input_datas,komponent_name):
         x_pos+=wall.leght
         beam.EndPoint = Point(x_pos, 0, wall.foundation_base)# Конечная точка компонента
         #Здесь будут заполняться атрибуты компонента
-        beam.Profile.ProfileString = "HEA300"
-        beam.Material.MaterialString = "S235JR"
+        beam.Profile.ProfileString = "RCRW6460*5000-500*1000-800-800*600-800*600" # HEA300
+        beam.Material.MaterialString = "Сoncrete"
         beam.Class = "3"
 
         if beam.Insert():
