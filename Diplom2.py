@@ -2,7 +2,7 @@
 import Functions
 import openpyxl
 import AutocadWork
-#import TeklaWork
+import TeklaWork
 
 
 # Описание файла и поожения данных для выгрузки в питон
@@ -33,8 +33,8 @@ print("Отрисовать виды в Автокад?\n1. ДА \n2. НЕТ")
 #choice=int(input())
 #if choice == 1:
 
-AutocadWork.DrawAutocad(input_datas)
+#AutocadWork.DrawAutocad(input_datas)
 komp_name="test"#"Подпст1"
-#TeklaWork.InputIKomponent(input_datas,komp_name)
+TeklaWork.InputIKomponent(input_datas,komp_name)
 #else:
 #    print("Выход из программы")
