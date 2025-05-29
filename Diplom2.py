@@ -34,7 +34,7 @@ print("Отрисовать виды в Автокад?\n1. ДА \n2. НЕТ")
 #if choice == 1:
 
 AutocadWork.DrawAutocad(input_datas)
-komp_name="test"#"Подпст1"
-#TeklaWork.InputIKomponent(input_datas,komp_name)
+
+#TeklaWork.InputIKomponent(input_datas)
 #else:
 #    print("Выход из программы")

@@ -10,7 +10,7 @@ clr.AddReference(tekla_path + "Tekla.Structures.Drawing.dll")
 from Tekla.Structures.Model import Model,Component, Beam
 from Tekla.Structures.Geometry3d import Point
 
-def InputIKomponent(input_datas,komponent_name):
+def InputIKomponent(input_datas):
     model = Model()
     if not model.GetConnectionStatus():
         print("Не удалось подключиться к модели Tekla")
