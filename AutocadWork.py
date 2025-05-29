@@ -127,9 +127,12 @@ def DrawAutocad(input_datas):
 
         SizeTopology.append([1, 5, math.pi/2, 1000,SizeStyle1])
         SizeTopology.append([4, 6, 3*math.pi/2, 1000,SizeStyle1])
-
-        SizeTopology.append([23, 24, math.pi/2, 500,SizeStyle1])
         SizeTopology.append([23, 26, 0, 1000,SizeStyle1])
+
+        SizeTopology.append([23, 24, math.pi/2, 1200,SizeStyle1])
+        SizeTopology.append([23, 27, math.pi/2, 500,SizeStyle1])
+        SizeTopology.append([27, 28, math.pi/2, 500,SizeStyle1])
+        SizeTopology.append([28, 24, math.pi/2, 500,SizeStyle1])
 
         #Размеры сечений в масштабе 1:50
         SizeStyle2 = 'LIN50'
@@ -138,7 +141,21 @@ def DrawAutocad(input_datas):
         SizeTopology.append([7, 14, 0, 1000,SizeStyle2])
 
         SizeTopology.append([15, 18, math.pi/2, 500,SizeStyle2])
+        
+        SizeTopology.append([7, 10, math.pi/2, 1000,SizeStyle2])
+        SizeTopology.append([7, 8, math.pi/2, 500,SizeStyle2])
+        SizeTopology.append([7, 14, 0, 500,SizeStyle2])
+        SizeTopology.append([10, 11, math.pi, 300,SizeStyle2])
+        SizeTopology.append([11, 12, math.pi, 300,SizeStyle2])
+        SizeTopology.append([14, 13,math.pi*1.5, 500,SizeStyle2])
+
+        SizeTopology.append([15, 18, math.pi/2, 1000,SizeStyle2])
+        SizeTopology.append([15, 16, math.pi/2, 500,SizeStyle2])
         SizeTopology.append([15, 22, 0, 500,SizeStyle2])
+        SizeTopology.append([18, 19, math.pi, 300,SizeStyle2])
+        SizeTopology.append([19, 20, math.pi, 300,SizeStyle2])
+        SizeTopology.append([22, 21,math.pi*1.5, 500,SizeStyle2])
+
 
 
 
@@ -244,7 +261,7 @@ def DrawAutocad(input_datas):
         #Вывод названий видов
 
         acad.doc.ActiveLayer = acad.doc.Layers.Item("Text_B")
-        to_view_dis=2000 # Расстояние от вида до его текста
+        to_view_dis=2500 # Расстояние от вида до его текста
 
         text_fas=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[5],SECTION_Coor[6],to_view_dis),0,"Фасад " + input_datas.sections[index].name +"\n (1 : 100)")
         text_fas.Height=400
