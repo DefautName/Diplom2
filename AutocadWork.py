@@ -12,7 +12,7 @@ def DrawAutocad(input_datas):
 
     Line_distance = 85000 #расстояние между двух видовых рамок секций
     View_l1 = 5000 #расстояние между фасадом и сечением 1-1 (по горизонтали)
-    View_l2 = 5000 #расстояние сечением 1-1 и сечением 2-2 (по горизонтали)
+    View_l2 = 4000 #расстояние сечением 1-1 и сечением 2-2 (по горизонтали)
     View_l3 =  10000 #расстояние между фасадом и планом (по вертикали)
     i=0
     for input_data in input_datas.sections:
@@ -138,13 +138,12 @@ def DrawAutocad(input_datas):
         SizeStyle2 = 'LIN50'
 
         SizeTopology.append([7, 10, math.pi/2, 500,SizeStyle2])
-        SizeTopology.append([7, 14, 0, 1000,SizeStyle2])
+        SizeTopology.append([7, 14, 0, 500,SizeStyle2])
 
         SizeTopology.append([15, 18, math.pi/2, 500,SizeStyle2])
         
         SizeTopology.append([7, 10, math.pi/2, 1000,SizeStyle2])
         SizeTopology.append([7, 8, math.pi/2, 500,SizeStyle2])
-        SizeTopology.append([7, 14, 0, 500,SizeStyle2])
         SizeTopology.append([10, 11, math.pi, 300,SizeStyle2])
         SizeTopology.append([11, 12, math.pi, 300,SizeStyle2])
         SizeTopology.append([14, 13,math.pi*1.5, 500,SizeStyle2])
@@ -259,13 +258,16 @@ def DrawAutocad(input_datas):
                 table.SetCellTextHeight(row, col, table_text_height)
                     
         #Вывод названий видов
-
+        #выставить стиль текста RS 0,7
+                
         acad.doc.ActiveLayer = acad.doc.Layers.Item("Text_B")
-        to_view_dis=2500 # Расстояние от вида до его текста
+        text_style = acad.doc.TextStyles.Item("RS0.7") #почему-то не пашет
+        to_view_dis = 2500 # Расстояние от вида до его текста
 
         text_fas=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[5],SECTION_Coor[6],to_view_dis),0,"Фасад " + input_datas.sections[index].name +"\n (1 : 100)")
-        text_fas.Height=400
-        text_fas.AttachmentPoint=5#ACAttachmentPoint.MiddleCenter Выравнивание текста по центру  
+        text_fas.Height = 400
+        
+        text_fas.AttachmentPoint = 5#ACAttachmentPoint.MiddleCenter Выравнивание текста по центру  
         text_plan=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[24],SECTION_Coor[25],to_view_dis),0,"План (1 : 100)")
         text_plan.Height=400
         text_1_1=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[10],SECTION_Coor[11],to_view_dis/2),0,"1 - 1 (1 : 50)")
