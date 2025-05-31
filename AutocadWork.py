@@ -96,6 +96,8 @@ def DrawAutocad(input_datas):
         Topology.append([12,13])
         Topology.append([13,14])
         Topology.append([14,7])
+        
+
 
         #Вид 2-2
         Topology.append([15,16])
@@ -115,6 +117,10 @@ def DrawAutocad(input_datas):
         Topology.append([28,29])
         Topology.append([27,30])
         Topology.append([31,32])
+        
+        #Линии границы ф-та и стены на 1-1 и 2-2
+        Topology.append([9,12])
+        Topology.append([17,20])
 
         # Создание маcсива топологии для отрисовки размерных линий
         # Все размеры создаются строго слева направо или снизу вверх!!!    
@@ -177,16 +183,15 @@ def DrawAutocad(input_datas):
         for it in range(1,len(points)):
             acad.model.AddLine(points[it-1],points[it])    # Создание полилинии (прямоугольника)
 
-        #Выставление необходимого 
         acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка слоя для отрисовки
         for item in Topology:
             start_point=APoint(SECTION_Coor[item[0]].x,SECTION_Coor[item[0]].y)
             end_point=APoint(SECTION_Coor[item[1]].x,SECTION_Coor[item[1]].y)
             acad.model.AddLine(start_point,end_point)
         
+        #Отрисовка размерных линий
         acad.doc.ActiveLayer = acad.doc.Layers.Item("Size") #установка слоя для отрисовки 
 
-        #Отрисовка размерных линий
         for item in SizeTopology:
             acad.doc.ActiveDimStyle = acad.doc.DimStyles.Item(item[4]) # Выставление необходимого размерного стиля 
             start_point = APoint(SECTION_Coor[item[0]].x, SECTION_Coor[item[0]].y )
@@ -199,27 +204,48 @@ def DrawAutocad(input_datas):
         acad.model.InsertBlock(
             APoint(SECTION_Coor[1].x+(SECTION_Coor[4].x- SECTION_Coor[1].x)/2  , input_datas.sections[index].foundation_base), #Точка вставки - SECTION_Coor[4].x)/2
             'Otmetka', #Имя блока
-            100, #Масштаб по Х
-            100, #Y
-            100, #Z
+            1, #Масштаб по Х
+            1, #Y
+            1, #Z
             0) #Угол поворота
         
         acad.model.InsertBlock(
             SECTION_Coor[6], 
             'Otmetka', 
-            100, 
-            100, 
-            100, 
+            1, 
+            1, 
+            1, 
             0)
         
         acad.model.InsertBlock(
             SECTION_Coor[5], 
             'Otmetka', 
-            100, 
-            100, 
-            100, 
+            1, 
+            1, 
+            1, 
             0)
-        # Создание таблицы ведомости объемов работ
+      
+                    
+        #Вывод названий видов
+        
+        acad.doc.ActiveLayer = acad.doc.Layers.Item("Text_B")
+        text_style = acad.doc.TextStyles.Item("RS0.7") 
+        acad.doc.ActiveTextStyle=text_style
+        to_view_dis = 2500 # Расстояние от вида до его текста
+
+        text_fas=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[5],SECTION_Coor[6],to_view_dis),0,"Фасад " + input_datas.sections[index].name +"\n (1 : 100)")
+        text_fas.Height = 400
+        
+        text_fas.AttachmentPoint = 5#ACAttachmentPoint.MiddleCenter Выравнивание текста по центру  
+        text_plan=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[24],SECTION_Coor[25],to_view_dis),0,"План (1 : 100)")
+        text_plan.Height=400
+        text_1_1=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[10],SECTION_Coor[11],to_view_dis/2),0,"1 - 1 (1 : 50)")
+        text_1_1.Height=200
+        text_2_2=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[18],SECTION_Coor[19],to_view_dis/2),0,"2 - 2 (1 : 50)")
+        text_2_2.Height=200
+        
+        
+          # Создание таблицы ведомости объемов работ
         acad.doc.ActiveLayer = acad.doc.Layers.Item("T_Border") #установка слоя для отрисовки 
 
         # Apoint (точка вставки, кол-во строк, кол-во столбцов, высота строки, ширина столбца) - таблица автоматически создается с объединенной 1-й строкой -типа название таблицы
@@ -251,30 +277,15 @@ def DrawAutocad(input_datas):
         table.SetText (2, 2, round(input_datas.sections[index].V1 , 1))
         table.SetText (3, 2, round(input_datas.sections[index].V2 , 1))
         
-        # Редактирование высоты текста в таблице
+        # Редактирование высоты и стиля текста в таблице
         table_text_height=350
         for row in range(table.Rows):
             for col in range(table.Columns):
+                table.SetCellTextStyle(row, col, "RS0.7")
+                table.SetCellAlignment(row, col,5)
                 table.SetCellTextHeight(row, col, table_text_height)
-                    
-        #Вывод названий видов
-        #выставить стиль текста RS 0,7
+         
                 
-        acad.doc.ActiveLayer = acad.doc.Layers.Item("Text_B")
-        text_style = acad.doc.TextStyles.Item("RS0.7") #почему-то не пашет
-        to_view_dis = 2500 # Расстояние от вида до его текста
 
-        text_fas=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[5],SECTION_Coor[6],to_view_dis),0,"Фасад " + input_datas.sections[index].name +"\n (1 : 100)")
-        text_fas.Height = 400
-        
-        text_fas.AttachmentPoint = 5#ACAttachmentPoint.MiddleCenter Выравнивание текста по центру  
-        text_plan=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[24],SECTION_Coor[25],to_view_dis),0,"План (1 : 100)")
-        text_plan.Height=400
-        text_1_1=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[10],SECTION_Coor[11],to_view_dis/2),0,"1 - 1 (1 : 50)")
-        text_1_1.Height=200
-        text_2_2=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[18],SECTION_Coor[19],to_view_dis/2),0,"2 - 2 (1 : 50)")
-        text_2_2.Height=200
-        
-
-        index+=1
+        index+=1 #Итератор смены секции
 
