@@ -35,6 +35,10 @@ class Wall(object):
     t4: float #олщина перекрытия 2 у насыпи
     V1: float #объем ростверка подпорной стены, м3
     V2: float #объем стеновой части подпорной стены, м3
+    tek_start_x:float
+    tek_start_y:float
+    tek_end_x:float
+    tek_end_y:float
         
     def SetData(self, sheet,read_column):#filename, sheetName
        # workbook = openpyxl.load_workbook(filename, data_only=True )
@@ -60,6 +64,13 @@ class Wall(object):
         self.t4=sheet.cell(row=read_row+17,column=read_column).value*1000
         self.V1=sheet.cell(row=read_row+18,column=read_column).value
         self.V2=sheet.cell(row=read_row+19,column=read_column).value
+
+        #
+        self.tek_start_x = (sheet.cell(row=read_row+25,column=read_column).value+sheet.cell(row=read_row+27,column=read_column).value)/2
+        self.tek_start_y = (sheet.cell(row=read_row+26,column=read_column).value+sheet.cell(row=read_row+28,column=read_column).value)/2
+        self.tek_end_x = (sheet.cell(row=read_row+29,column=read_column).value+sheet.cell(row=read_row+31,column=read_column).value)/2
+        self.tek_end_y = (sheet.cell(row=read_row+30,column=read_column).value+sheet.cell(row=read_row+32,column=read_column).value)/2
+
 
 
     def ShowAll(self):
