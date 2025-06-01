@@ -284,8 +284,6 @@ def DrawAutocad(input_datas):
                 table.SetCellTextStyle(row, col, "RS0.7")
                 table.SetCellAlignment(row, col,5)
                 table.SetCellTextHeight(row, col, table_text_height)
-         
-                
 
         index+=1 #Итератор смены секции
 
