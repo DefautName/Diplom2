@@ -2,7 +2,7 @@
 import Functions
 import openpyxl
 import AutocadWork
-import TeklaWork
+
 
 
 # Описание файла и поожения данных для выгрузки в питон
@@ -30,5 +30,9 @@ if choice == 1:
     AutocadWork.DrawAutocad(input_datas)
 
 if choice == 2:
-    TeklaWork.InputIKomponent(input_datas)
+    try:
+        import TeklaWork
+        TeklaWork.InputIKomponent(input_datas)
+    except:
+        print("На компьютере отсутствует Текла")
 
