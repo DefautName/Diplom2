@@ -34,5 +34,7 @@ if choice == 2:
         import TeklaWork
         TeklaWork.InputIKomponent(input_datas)
     except:
-        print("На компьютере отсутствует Текла")
+        print("На компьютере отсутствует Текла или в папке нет одного из его модулей")
+
+input("Нажмите Enter для завершения программы")
 
