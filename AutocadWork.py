@@ -119,8 +119,8 @@
             Topology.append([31,32])
         
             #Линии границы ф-та и стены на 1-1 и 2-2
-            #Topology.append([9,12])
-            #Topology.append([17,20])
+            Topology.append([9,12])
+            Topology.append([17,20])
 
             # Создание маcсива топологии для отрисовки размерных линий
             # Все размеры создаются строго слева направо или снизу вверх!!!    
@@ -230,7 +230,7 @@
         
             acad.doc.ActiveLayer = acad.doc.Layers.Item("Text_B")
             text_style = acad.doc.TextStyles.Item("RS0.7") 
-            acad.doc.ActiveTextStyle = text_style
+            acad.doc.ActiveTextStyle=text_style
             to_view_dis = 2500 # Расстояние от вида до его текста
 
             text_fas=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[5],SECTION_Coor[6],to_view_dis),0,"Фасад " + input_datas.sections[index].name +"\n (1 : 100)")
@@ -252,6 +252,7 @@
 
             table = acad.model.AddTable(APoint(points[2].x - 18500, points[2].y),4,3,1000,1000) 
 
+            #table.SetTextHeight(5) #высота текста 3 - задается для всей таблицы
             # Задать сразу правильные размеры столбцов и строк - нельзя. Поэтому изменяем их после создания таблицы другим методом:#
     
             table.SetColumnWidth (0, 14500) # 1й столбец ширина = 145000
