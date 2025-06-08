@@ -6,9 +6,9 @@
 
     # tekla_path = r"C:/Program Files/Tekla Structures/2020.0/nt/bin/plugins/"  # Укажите ваш путь
     tekla_path = Path.cwd() # Узнаем путь к папке, где лежит приложение
-    clr.AddReference(str(tekla_path) + "/Tekla.Structures.dll")
-    clr.AddReference(str(tekla_path) + "/Tekla.Structures.Model.dll")
-    clr.AddReference(str(tekla_path) + "/Tekla.Structures.Drawing.dll")
+    clr.AddReference(str(tekla_path) + "/Tekla.Structures.dll") # отвечает за работу геометрии в текле
+    clr.AddReference(str(tekla_path) + "/Tekla.Structures.Model.dll") # отвечает за работу с балками и прочими компонентами
+    clr.AddReference(str(tekla_path) + "/Tekla.Structures.Drawing.dll") #  отвечает за работу с чертежом
 
 
     from Tekla.Structures.Model import Model, Beam,Position
