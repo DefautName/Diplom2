@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>84519ad3-6a24-4f0f-97e4-58333f0039d7</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Diplom2.py</StartupFile>
+    <StartupFile>Stena.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,7 +23,7 @@
   <ItemGroup>
     <Compile Include="AutocadWork.py" />
     <Compile Include="Classes.py" />
-    <Compile Include="Diplom2.py" />
+    <Compile Include="Stena.py" />
     <Compile Include="Functions.py" />
     <Compile Include="TeklaWork.py" />
   </ItemGroup>
