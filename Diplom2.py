@@ -30,11 +30,11 @@ if choice == 1:
     AutocadWork.DrawAutocad(input_datas)
 
 if choice == 2:
-    try:
-        import TeklaWork
-        TeklaWork.InputIKomponent(input_datas)
-    except:
-        print("На компьютере отсутствует Текла или в папке нет одного из его модулей")
+    # try:
+    import TeklaWork
+    TeklaWork.InputIKomponent(input_datas)
+    # except:
+    #     print("На компьютере отсутствует Текла или в папке нет одного из его модулей")
 
 input("Нажмите Enter для завершения программы")
 

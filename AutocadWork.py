@@ -96,18 +96,9 @@
             Topology.append([12,13])
             Topology.append([13,14])
             Topology.append([14,7])
-        
+            #Линии границы ф-та и стены на 1-1
+            Topology.append([9,12])
 
-
-            #Вид 2-2
-            Topology.append([15,16])
-            Topology.append([16,17])
-            Topology.append([17,18])
-            Topology.append([18,19])
-            Topology.append([19,20])
-            Topology.append([20,21])
-            Topology.append([21,22])
-            Topology.append([22,15])
 
             #План
             Topology.append([23,24])
@@ -117,9 +108,17 @@
             Topology.append([28,29])
             Topology.append([27,30])
             Topology.append([31,32])
-        
-            #Линии границы ф-та и стены на 1-1 и 2-2
-            Topology.append([9,12])
+                    
+            #Вид 2-2
+            Topology.append([15,16])
+            Topology.append([16,17])
+            Topology.append([17,18])
+            Topology.append([18,19])
+            Topology.append([19,20])
+            Topology.append([20,21])
+            Topology.append([21,22])
+            Topology.append([22,15])
+            #Линии границы ф-та и стены на 2-2
             Topology.append([17,20])
 
             # Создание маcсива топологии для отрисовки размерных линий
@@ -146,7 +145,6 @@
             SizeTopology.append([7, 10, math.pi/2, 500,SizeStyle2])
             SizeTopology.append([7, 14, 0, 500,SizeStyle2])
 
-            SizeTopology.append([15, 18, math.pi/2, 500,SizeStyle2])
         
             SizeTopology.append([7, 10, math.pi/2, 1000,SizeStyle2])
             SizeTopology.append([7, 8, math.pi/2, 500,SizeStyle2])
@@ -154,6 +152,8 @@
             SizeTopology.append([11, 12, math.pi, 300,SizeStyle2])
             SizeTopology.append([14, 13,math.pi*1.5, 500,SizeStyle2])
 
+            # Размерные линии вида 2-2
+            SizeTopology.append([15, 18, math.pi/2, 500,SizeStyle2])
             SizeTopology.append([15, 18, math.pi/2, 1000,SizeStyle2])
             SizeTopology.append([15, 16, math.pi/2, 500,SizeStyle2])
             SizeTopology.append([15, 22, 0, 500,SizeStyle2])
@@ -184,21 +184,29 @@
                 acad.model.AddLine(points[it-1],points[it])    # Создание полилинии (прямоугольника)
 
             acad.doc.ActiveLayer = acad.doc.Layers.Item("Contur")#установка слоя для отрисовки
+            i=0
             for item in Topology:
                 start_point=APoint(SECTION_Coor[item[0]].x,SECTION_Coor[item[0]].y)
                 end_point=APoint(SECTION_Coor[item[1]].x,SECTION_Coor[item[1]].y)
                 acad.model.AddLine(start_point,end_point)
+                #Если высота подпорной стенки постоянная, то вид 2-2 не отрисовываем
+                if input_datas.sections[index].height_end == input_datas.sections[index].height_start and i == 20:
+                    break
+                i+=1
         
             #Отрисовка размерных линий
             acad.doc.ActiveLayer = acad.doc.Layers.Item("Size") #установка слоя для отрисовки 
-
+            i=0
             for item in SizeTopology:
                 acad.doc.ActiveDimStyle = acad.doc.DimStyles.Item(item[4]) # Выставление необходимого размерного стиля 
                 start_point = APoint(SECTION_Coor[item[0]].x, SECTION_Coor[item[0]].y )
                 end_point = APoint(SECTION_Coor[item[1]].x, SECTION_Coor[item[1]].y )
                 dim_position = Functions.GetSizePoint(start_point,end_point,item[2],item[3])
                 dim_obj = acad.model.AddDimRotated(start_point, end_point, dim_position,item[2])
-            
+                #Если высота подпорной стенки постоянная, то вид 2-2 не отрисовываем
+                if input_datas.sections[index].height_end == input_datas.sections[index].height_start and i == 13:
+                    break
+                i+=1
             # Вставка блока отметки
         
             acad.model.InsertBlock(
@@ -241,8 +249,10 @@
             text_plan.Height=400
             text_1_1=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[10],SECTION_Coor[11],to_view_dis/2),0,"1 - 1 (1 : 50)")
             text_1_1.Height=200
-            text_2_2=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[18],SECTION_Coor[19],to_view_dis/2),0,"2 - 2 (1 : 50)")
-            text_2_2.Height=200
+            #Если высота подпорной стенки постоянная, то вид 2-2 не отрисовываем
+            if input_datas.sections[index].height_end != input_datas.sections[index].height_start:
+                text_2_2=acad.model.AddMText(Functions.GetStringPoint(SECTION_Coor[18],SECTION_Coor[19],to_view_dis/2),0,"2 - 2 (1 : 50)")
+                text_2_2.Height=200
         
         
               # Создание таблицы ведомости объемов работ
