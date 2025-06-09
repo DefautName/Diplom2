@@ -118,8 +118,9 @@
             Topology.append([20,21])
             Topology.append([21,22])
             Topology.append([22,15])
+            
             #Линии границы ф-та и стены на 2-2
-            Topology.append([17,20])
+            #Topology.append([17,20])
 
             # Создание маcсива топологии для отрисовки размерных линий
             # Все размеры создаются строго слева направо или снизу вверх!!!    
@@ -142,19 +143,19 @@
             #Размеры сечений в масштабе 1:50
             SizeStyle2 = 'LIN50'
 
-            SizeTopology.append([7, 10, math.pi/2, 500,SizeStyle2])
+            SizeTopology.append([7, 10, math.pi/2, 1000,SizeStyle2])
             SizeTopology.append([7, 14, 0, 500,SizeStyle2])
 
         
-            SizeTopology.append([7, 10, math.pi/2, 1000,SizeStyle2])
+            SizeTopology.append([8, 10, math.pi/2, 500,SizeStyle2])
             SizeTopology.append([7, 8, math.pi/2, 500,SizeStyle2])
             SizeTopology.append([10, 11, math.pi, 300,SizeStyle2])
             SizeTopology.append([11, 12, math.pi, 300,SizeStyle2])
             SizeTopology.append([14, 13,math.pi*1.5, 500,SizeStyle2])
 
             # Размерные линии вида 2-2
-            SizeTopology.append([15, 18, math.pi/2, 500,SizeStyle2])
             SizeTopology.append([15, 18, math.pi/2, 1000,SizeStyle2])
+            SizeTopology.append([16, 18, math.pi/2, 500,SizeStyle2])
             SizeTopology.append([15, 16, math.pi/2, 500,SizeStyle2])
             SizeTopology.append([15, 22, 0, 500,SizeStyle2])
             SizeTopology.append([18, 19, math.pi, 300,SizeStyle2])
