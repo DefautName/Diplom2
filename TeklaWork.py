@@ -41,7 +41,7 @@
                 print("Ошибка при создании " + wall.name_wall)
                 return None
 
-            cut_beam=Beam()
+            cut_beam = Beam()
             cut_beam.StartPoint = Point(wall.tek_start_x, wall.tek_start_y, wall.foundation_base+wall.height_start)# Стартовая точка подпорной стенки
             cut_beam.EndPoint = Point(wall.tek_end_x, wall.tek_end_y, wall.foundation_base+wall.height_end)# Конечная точка подпорной стенки
             cut_beam.Profile.ProfileString = f"{wall.foundation_width*2}*{wall.foundation_width*2}"
